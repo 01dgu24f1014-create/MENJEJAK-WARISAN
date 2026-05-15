@@ -45,7 +45,7 @@
       border: 4px solid #000;
       position: relative;
       z-index: 10;
-      box-shadow: 0 0 20px #00ffcc; /* Tambah efek 'glow' cyber/metaverse pada peta */
+      box-shadow: 0 0 20px #00ffcc;
     }
 
     #map {
@@ -89,7 +89,7 @@
     .metaverse-btn {
         margin-top: 15px;
         font-size: 10px !important;
-        animation: blinker 1.5s linear infinite; /* Efek berkelip */
+        animation: blinker 1.5s linear infinite;
     }
     
     @keyframes blinker {
@@ -128,26 +128,29 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([4.2105, 101.9758], 6);
+    var map = L.map('map').setView([4.2105, 101.9758], 5); // Zum diturunkan sikit ke tahap 5 untuk nampak Sabah/Sarawak
     
-    // Guna Peta Gelap/Satelit untuk nampak lebih 'Metaverse' dan Teknologi
+    // Peta Satelit Esri (Gaya Metaverse)
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri'
+      attribution: 'Tiles © Esri'
     }).addTo(map);
 
+    // Data Lokasi Lengkap
     var lokasiWarisan = [
-      { n: "Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "A Famosa sebagai kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda dan pusat pentadbiran.", img: "" },
-      { n: "Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina untuk majlis diraja seperti pertabalan sultan, majlis perkahwinan diraja, mesyuarat dan acara rasmi kerajaan negeri Kedah.", img: "kedah.png" },
-      { n: "Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi dan lokasi majlis rasmi kerajaan negeri.", img: "Johor.png" },
-      { n: "Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid Abidin dibina sebagai masjid utama dan masjid diraja Terengganu.", img: "Terengganu.png" },
-      { n: "Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Menara Condong Teluk Intan dibina sebagai tangki simpanan air untuk kegunaan harian dan kecemasan seperti kebakaran.", img: "" },
-      { n: "Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Dibina oleh Sultan Muhamad II sebagai anugerah dan hadiah istimewa kepada cucunda baginda.", img: "Kelantan.png" },
-      { n: "Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Dibina khusus untuk menempatkan pejabat-pejabat urusan pentadbiran kolonial British (Sekretariat).", img: "KL.png" },
-      { n: "Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Dibina atas cetusan idea Sultan Sir Alaeddin Sulaiman Shah sebagai pusat pentadbiran diraja Selangor.", img: "Selangor.png" },
-      { n: "Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina untuk menggantikan istana lama yang terbakar, berfungsi sebagai istana kediaman rasmi.", img: "N. 9.png" },
-      { n: "Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Dibina sebagai rumah persatuan (clanhouse) untuk menyatukan ahli keluarga dalam perantauan.", img: "penang.png" },
-      { n: "Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Dibina untuk menjalankan operasi perlombongan bijih timah bawah tanah oleh syarikat British (PCCL).", img: "" },
-      { n: "Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Asalnya tapak kediaman keluarga bangsawan dan kerabat diraja, kemudian kediaman Penasihat British.", img: "" }
+      { n: "Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda.", img: "" },
+      { n: "Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina untuk majlis diraja seperti pertabalan sultan.", img: "kedah.png" },
+      { n: "Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi.", img: "Johor.png" },
+      { n: "Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid diraja utama Terengganu yang dikenali sebagai Masjid Putih.", img: "Terengganu.png" },
+      { n: "Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Asalnya tangki simpanan air untuk kegunaan harian dan kecemasan.", img: "" },
+      { n: "Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Anugerah Sultan Muhamad II kepada cucunda baginda.", img: "Kelantan.png" },
+      { n: "Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Menempatkan pejabat-pejabat urusan pentadbiran kolonial British.", img: "KL.png" },
+      { n: "Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Pusat pentadbiran diraja Selangor cetusan idea Sultan Sir Alaeddin.", img: "Selangor.png" },
+      { n: "Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina untuk menggantikan istana lama yang terbakar.", img: "N. 9.png" },
+      { n: "Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Rumah persatuan (clanhouse) untuk menyatukan ahli keluarga.", img: "penang.png" },
+      { n: "Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Pusat perlombongan bijih timah bawah tanah terdalam.", img: "" },
+      { n: "Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Tapak kediaman keluarga bangsawan dan kerabat diraja.", img: "" },
+      { n: "Tugu Peringatan Perang Kundasang (Sabah)", t: "1962", c: [5.9846, 116.5772], i: "Memperingati tawanan perang yang maut dalam Kawat Maut Sandakan.", img: "" },
+      { n: "Kubu Margherita (Sarawak)", t: "1879", c: [1.5606, 110.3467], i: "Dibina oleh Rajah Putih Charles Brooke untuk melindungi bandar Kuching.", img: "" }
     ];
 
     var dialogText = document.getElementById("dialog-text");
@@ -158,8 +161,8 @@
       var marker = L.marker(l.c).addTo(map);
       marker.on('click', function() {
         
-        // Pautan automatik ke Google Street View 360 berdasarkan koordinat
-        var metaverseLink = "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + l.c[0] + "," + l.c[1];
+        // KOD BARU: Terus pautkan koordinat ke Google Street View 360
+        var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
         
         dialogText.innerHTML = "<strong>" + l.n + " (" + l.t + ")</strong><br><br>" + l.i + 
         "<br><a href='" + metaverseLink + "' target='_blank' class='nes-btn is-success metaverse-btn'>MASUK METAVERSE 360°</a>";
