@@ -1,4 +1,71 @@
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jejak Warisan Digital Malaysia</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #212529;
+      color: #fff;
+      padding: 20px;
+    }
+    
+    .header-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #f7d51d; /* Warna emas ala harta karun */
+    }
+
+    #map-container {
+      background-color: white;
+      padding: 5px;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 400px; /* Ketinggian peta */
+      width: 100%;
+      border: 4px solid #000;
+    }
+
+    /* Kotak Dialog NPC */
+    .dialog-box {
+      background-color: white;
+      color: black;
+    }
+    
+    .npc-avatar {
+      width: 60px;
+      height: 60px;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 class="header-title"><i class="nes-icon star"></i> JEJAK WARISAN MALAYSIA <i class="nes-icon star"></i></h2>
+
+  <div class="nes-container is-rounded" id="map-container">
+    <div id="map"></div> </div>
+
+  <section class="nes-container with-title dialog-box">
+    <p class="title">Pemandu Sejarah</p>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" class="npc-avatar" alt="NPC">
+      <p id="dialog-text">Selamat datang, pengembara! Sila klik pada mana-mana pin di peta untuk menjejak sejarah warisan kita.</p>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     // 1. Tetapkan Peta ke koordinat Malaysia (Zoom level 6)
@@ -85,3 +152,6 @@
       });
     });
   </script>
+
+</body>
+</html>
