@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jejak Warisan Digital Malaysia</title>
+  <title>Jejak Warisan Digital Malaysia - Linimasa</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   
@@ -37,33 +37,60 @@
       border: 4px solid #000;
     }
 
-    /* Kotak Dialog NPC */
+    /* Kotak Dialog RPG */
     .dialog-box {
       background-color: white;
       color: black;
+      margin-top: 20px;
     }
     
-    .npc-avatar {
-      width: 60px;
-      height: 60px;
+    #npc-avatar {
+      width: 100px; /* Saiz lebih besar untuk imej negeri */
+      height: 100px;
       image-rendering: pixelated;
+      border: 2px solid black;
     }
+    
+    #generic-avatar-src {
+        display: none;
+    }
+
+    /* Bekas Linimasa */
+    #timeline-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    #timeline-image {
+        max-width: 80%;
+        height: auto;
+        border: 4px solid #000;
+    }
+
   </style>
 </head>
 <body>
 
-  <h2 class="header-title"><i class="nes-icon star"></i> JEJAK WARISAN MALAYSIA <i class="nes-icon star"></i></h2>
+  <h2 class="header-title"><i class="nes-icon star"></i> LINIMASA JEJAK WARISAN MALAYSIA <i class="nes-icon star"></i></h2>
 
   <div class="nes-container is-rounded" id="map-container">
-    <div id="map"></div> </div>
+    <div id="map"></div> 
+  </div>
 
   <section class="nes-container with-title dialog-box">
     <p class="title">Pemandu Sejarah</p>
     <div style="display: flex; align-items: center; gap: 20px;">
-      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" class="npc-avatar" alt="NPC">
-      <p id="dialog-text">Selamat datang, pengembara! Sila klik pada mana-mana pin di peta untuk menjejak sejarah warisan kita.</p>
+      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="NPC">
+      <p id="dialog-text">Selamat datang, pengembara! Sila klik pada mana-mana pin di peta untuk menjejak sejarah warisan dari linimasa kita.</p>
     </div>
   </section>
+
+  <div id="timeline-container">
+    <h3 style="color: #f7d51d;">Rujukan Linimasa:</h3>
+    <img src="cart.jpeg" id="timeline-image" alt="Linimasa Warisan">
+  </div>
+  
+  <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="generic-avatar-src" alt="Default Avatar">
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -76,79 +103,115 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // 3. Senarai Data Lokasi Warisan (Kemas kini dari Jadual)
+    // 3. Senarai Data Lokasi Warisan yang Baharu (12 Lokasi dari Linimasa)
     var lokasiWarisan = [
       {
-        nama: "Rumah P. Ramlee (Pulau Pinang)",
-        koordinat: [5.4100, 100.3144],
-        info: "Tahun: Awal abad ke-20. Rumah P. Ramlee dibina sebagai tempat kediaman keluarga. (Tapak Warisan Negara Malaysia)"
-      },
-      {
-        nama: "Menara Condong Teluk Intan (Perak)",
-        koordinat: [4.0253, 101.0195],
-        info: "Tahun: 1885. Dibina sebagai tangki simpanan air untuk kegunaan harian dan kecemasan seperti kebakaran. (Bangunan Warisan Negara Malaysia)"
-      },
-      {
-        nama: "Istana Bandar Jugra (Selangor)",
-        koordinat: [2.8596, 101.4428],
-        info: "Tahun: 1899. Dibina atas cetusan idea Sultan Sir Alaeddin Sulaiman Shah sebagai pusat pentadbiran diraja Selangor. (Bangunan Bersejarah)"
-      },
-      {
-        nama: "Muzium Diraja Istana Seri Menanti (N. Sembilan)",
-        koordinat: [2.6974, 102.1585],
-        info: "Tahun: 1902 - 1908. Dibina untuk menggantikan istana lama yang terbakar, berfungsi sebagai istana kediaman rasmi. (Muzium Diraja)"
-      },
-      {
         nama: "Kota A Famosa (Melaka)",
+        tahun: 1511,
         koordinat: [2.1923, 102.2497],
-        info: "Tahun: 1511. A Famosa sebagai kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda dan pusat pentadbiran. (Tapak Warisan Dunia UNESCO)"
+        info: "A Famosa sebagai kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda dan pusat pentadbiran.",
+        imej: "" // Tiada fail khusus, guna lalai
       },
       {
-        nama: "Istana Besar Johor (Johor)",
+        nama: "Balai Besar, Alor Setar (Kedah)",
+        tahun: 1735,
+        koordinat: [6.1206, 100.3664],
+        info: "Dibina untuk majlis diraja seperti pertabalan sultan, majlis perkahwinan diraja, mesyuarat dan acara rasmi kerajaan negeri Kedah.",
+        imej: "kedah.png" // Fail dari folder awak
+      },
+      {
+        nama: "Istana Besar Johor, Johor Bahru (Johor)",
+        tahun: 1866,
         koordinat: [1.4552, 103.7554],
-        info: "Tahun: 1866. Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi dan lokasi majlis rasmi kerajaan negeri. (Muzium Diraja)"
+        info: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi dan lokasi majlis rasmi kerajaan negeri.",
+        imej: "Johor.png" // Fail dari folder awak
+      },
+      {
+        nama: "Masjid Abidin (Masjid Putih), Kuala Terengganu (Terengganu)",
+        tahun: 1793,
+        koordinat: [5.3340, 103.1423],
+        info: "Masjid Abidin dibina sebagai masjid utama dan masjid diraja Terengganu.",
+        imej: "Terengganu.png" // Fail dari folder awak
+      },
+      {
+        nama: "Menara Condong, Teluk Intan (Perak)",
+        tahun: 1885,
+        koordinat: [4.0253, 101.0195],
+        info: "Menara Condong Teluk Intan dibina sebagai tangki simpanan air untuk kegunaan harian dan kecemasan seperti kebakaran.",
+        imej: "" // Tiada fail khusus, guna lalai
+      },
+      {
+        nama: "Istana Jahar, Kota Bharu (Kelantan)",
+        tahun: 1887,
+        koordinat: [6.1322, 102.2374],
+        info: "Dibina oleh Sultan Muhamad II sebagai anugerah dan hadiah istimewa kepada cucunda baginda.",
+        imej: "Kelantan.png" // Fail dari folder awak
+      },
+      {
+        nama: "Istana Bandar Jugra, Banting (Selangor)",
+        tahun: 1899,
+        koordinat: [2.8596, 101.4428],
+        info: "Dibina atas cetusan idea Sultan Sir Alaeddin Sulaiman Shah sebagai pusat pentadbiran diraja Selangor.",
+        imej: "Selangor.png" // Fail dari folder awak
+      },
+      {
+        nama: "Bangunan Sultan Abdul Samad, Pusat Bandaraya (Kuala Lumpur)",
+        tahun: 1897,
+        koordinat: [3.1486, 101.6945],
+        info: "Dibina khusus untuk menempatkan pejabat-pejabat urusan pentadbiran kolonial British (Sekretariat).",
+        imej: "KL.png" // Fail dari folder awak
+      },
+      {
+        nama: "Muzium Diraja Istana Seri Menanti, Kuala Pilah (Negeri Sembilan)",
+        tahun: 1902,
+        koordinat: [2.6974, 102.1585],
+        info: "Dibina untuk menggantikan istana lama yang terbakar, berfungsi sebagai istana kediaman rasmi.",
+        imej: "N. 9.png" // Fail dari folder awak
+      },
+      {
+        nama: "Leong San Tong Khoo Kongsi, George Town (Pulau Pinang)",
+        tahun: 1906,
+        koordinat: [5.4141, 100.3375],
+        info: "Dibina sebagai rumah persatuan (clanhouse) untuk menyatukan ahli keluarga dalam perantauan.",
+        imej: "penang.png" // Fail dari folder awak
+      },
+      {
+        nama: "Muzium Kota Kayang, Kangar (Perlis)",
+        tahun: 1999,
+        koordinat: [6.4172, 100.1706],
+        info: "Asalnya tapak kediaman keluarga bangsawan dan kerabat diraja, kemudian kediaman Penasihat British.",
+        imej: "" // Tiada fail khusus, guna lalai
       },
       {
         nama: "Muzium Sungai Lembing (Pahang)",
+        tahun: 1906,
         koordinat: [3.9135, 103.0335],
-        info: "Tahun: 1906 - 1986. Dibina untuk menjalankan operasi perlombongan bijih timah bawah tanah oleh syarikat British (PCCL)."
-      },
-      {
-        nama: "Masjid Abidin (Terengganu)",
-        koordinat: [5.3340, 103.1423],
-        info: "Tahun: 1793. Dikenali sebagai Masjid Putih, dibina sebagai masjid utama dan masjid diraja Terengganu. (Bangunan Warisan Negara Malaysia)"
-      },
-      {
-        nama: "Istana Jahar (Kelantan)",
-        koordinat: [6.1322, 102.2374],
-        info: "Tahun: 1887. Dibina oleh Sultan Muhamad II sebagai anugerah dan hadiah istimewa kepada cucunda baginda. (Muzium Negeri)"
-      },
-      {
-        nama: "Tugu Peringatan Perang Kundasang (Sabah)",
-        koordinat: [5.9818, 116.5772],
-        info: "Tahun: 1962. Memperingati tawanan perang Australia, British, dan orang tempatan yang maut dalam 'Kawat Maut Sandakan'."
-      },
-      {
-        nama: "Kubu Margherita (Sarawak)",
-        koordinat: [1.5606, 110.3456],
-        info: "Tahun: 1879. Dibina oleh Rajah Putih Charles Brooke untuk melindungi bandar Kuching daripada ancaman lanun. (Kubu Bersejarah / Muzium)"
-      },
-      {
-        nama: "Bangunan Sultan Abdul Samad (Kuala Lumpur)",
-        koordinat: [3.1486, 101.6945],
-        info: "Tahun: 1897. Dibina khusus untuk menempatkan pejabat-pejabat urusan pentadbiran kolonial British. (Bangunan Bersejarah Kebangsaan)"
+        info: "Dibina untuk menjalankan operasi perlombongan bijih timah bawah tanah oleh syarikat British (PCCL).",
+        imej: "" // Tiada fail khusus, guna lalai
       }
     ];
 
-    // 4. Fungsi untuk letak pin/marker dan tukar teks dialog
+    // 4. Fungsi untuk letak pin/marker dan tukar teks/imej dialog
     var dialogText = document.getElementById("dialog-text");
+    var npcAvatar = document.getElementById("npc-avatar");
+    var genericAvatarSrc = document.getElementById("generic-avatar-src").src;
 
     lokasiWarisan.forEach(function(lokasi) {
+      // Tambah pin di peta
       var marker = L.marker(lokasi.koordinat).addTo(map);
       
-      // Bila marker diklik, tukar teks di kotak dialog bawah
+      // Bila marker diklik, tukar teks/imej di kotak dialog bawah
       marker.on('click', function() {
-        dialogText.innerHTML = "<strong>" + lokasi.nama + "</strong><br>" + lokasi.info;
+        dialogText.innerHTML = "<strong>" + lokasi.nama + " (TAHUN " + lokasi.tahun + ")</strong><br><br>" + lokasi.info;
+        
+        // Tukar gambar avatar mengikut negeri
+        if (lokasi.imej !== "") {
+            // Jika ada fail imej negeri, gunakannya (Pastikan fail dimuat naik ke GitHub)
+            npcAvatar.src = lokasi.imej;
+        } else {
+            // Jika tiada fail imej khusus, gunakan generic avatar
+            npcAvatar.src = genericAvatarSrc;
+        }
       });
     });
   </script>
