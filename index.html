@@ -15,11 +15,11 @@
       font-family: 'Press Start 2P', cursive;
       background-color: #212529;
       color: #fff;
-      padding: 80px 50px; /* Ruang supaya tidak kena bingkai */
+      padding: 80px 50px; 
       margin: 0;
     }
     
-    /* Bingkai NGGSIC - Tetapan Kekal di Atas */
+    /* Bingkai NGGSIC */
     .poster-frame {
       position: fixed;
       top: 0;
@@ -27,7 +27,8 @@
       width: 100vw;
       height: 100vh;
       z-index: 9999;
-      pointer-events: none; /* Supaya boleh klik peta di belakang bingkai */
+      pointer-events: none; 
+      mix-blend-mode: multiply; /* KOD PENTING: Untuk hilangkan warna putih di tengah frame */
     }
 
     .header-title {
@@ -42,6 +43,8 @@
       padding: 10px;
       margin-bottom: 20px;
       border: 4px solid #000;
+      position: relative;
+      z-index: 10;
     }
 
     #map {
@@ -54,6 +57,8 @@
       color: black;
       margin-top: 20px;
       min-height: 150px;
+      position: relative;
+      z-index: 10;
     }
     
     #npc-avatar {
@@ -68,6 +73,8 @@
       text-align: center;
       margin-top: 40px;
       padding-bottom: 100px;
+      position: relative;
+      z-index: 10;
     }
     
     #timeline-image {
@@ -75,7 +82,6 @@
       border: 5px solid #fff;
     }
 
-    /* Sembunyikan elemen teknikal */
     #hidden-assets { display: none; }
   </style>
 </head>
@@ -108,11 +114,9 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    // 1. Inisialisasi Peta
     var map = L.map('map').setView([4.2105, 101.9758], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // 2. Data 12 Lokasi (Kombinasi Jadual & Linimasa)
     var lokasiWarisan = [
       { n: "Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis yang ikonik di Melaka.", img: "" },
       { n: "Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Tempat pertabalan dan majlis rasmi diraja Kedah.", img: "kedah.png" },
@@ -132,14 +136,10 @@
     var npcAvatar = document.getElementById("npc-avatar");
     var defaultImg = document.getElementById("default-avatar").src;
 
-    // 3. Letakkan Pin & Logik Klik
     lokasiWarisan.forEach(function(l) {
       var marker = L.marker(l.c).addTo(map);
       marker.on('click', function() {
-        // Tukar Teks
         dialogText.innerHTML = "<strong>" + l.n + " (" + l.t + ")</strong><br><br>" + l.i;
-        
-        // Tukar Gambar Avatar (Jika ada fail .png negeri)
         if (l.img !== "") {
           npcAvatar.src = l.img;
         } else {
