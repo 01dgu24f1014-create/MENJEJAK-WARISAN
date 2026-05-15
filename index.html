@@ -1,72 +1,4 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jejak Warisan Digital Malaysia</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  
-  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <style>
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #212529;
-      color: #fff;
-      padding: 20px;
-    }
-    
-    .header-title {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #f7d51d; /* Warna emas ala harta karun */
-    }
-
-    #map-container {
-      background-color: white;
-      padding: 5px;
-      margin-bottom: 20px;
-    }
-
-    #map {
-      height: 400px; /* Ketinggian peta */
-      width: 100%;
-      border: 4px solid #000;
-    }
-
-    /* Kotak Dialog NPC */
-    .dialog-box {
-      background-color: white;
-      color: black;
-    }
-    
-    .npc-avatar {
-      width: 60px;
-      height: 60px;
-      image-rendering: pixelated;
-    }
-  </style>
-</head>
-<body>
-
-  <h2 class="header-title"><i class="nes-icon star"></i> JEJAK WARISAN MALAYSIA <i class="nes-icon star"></i></h2>
-
-  <div class="nes-container is-rounded" id="map-container">
-    <div id="map"></div>
-  </div>
-
-  <section class="nes-container with-title dialog-box">
-    <p class="title">Pemandu Sejarah</p>
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" class="npc-avatar" alt="NPC">
-      <p id="dialog-text">Selamat datang, pengembara! Sila klik pada mana-mana pin di peta untuk menjejak sejarah warisan kita.</p>
-    </div>
-  </section>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     // 1. Tetapkan Peta ke koordinat Malaysia (Zoom level 6)
@@ -77,22 +9,67 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // 3. Senarai Data Lokasi Warisan
+    // 3. Senarai Data Lokasi Warisan (Kemas kini dari Jadual)
     var lokasiWarisan = [
       {
-        nama: "Kota A Famosa",
+        nama: "Rumah P. Ramlee (Pulau Pinang)",
+        koordinat: [5.4100, 100.3144],
+        info: "Tahun: Awal abad ke-20. Rumah P. Ramlee dibina sebagai tempat kediaman keluarga. (Tapak Warisan Negara Malaysia)"
+      },
+      {
+        nama: "Menara Condong Teluk Intan (Perak)",
+        koordinat: [4.0253, 101.0195],
+        info: "Tahun: 1885. Dibina sebagai tangki simpanan air untuk kegunaan harian dan kecemasan seperti kebakaran. (Bangunan Warisan Negara Malaysia)"
+      },
+      {
+        nama: "Istana Bandar Jugra (Selangor)",
+        koordinat: [2.8596, 101.4428],
+        info: "Tahun: 1899. Dibina atas cetusan idea Sultan Sir Alaeddin Sulaiman Shah sebagai pusat pentadbiran diraja Selangor. (Bangunan Bersejarah)"
+      },
+      {
+        nama: "Muzium Diraja Istana Seri Menanti (N. Sembilan)",
+        koordinat: [2.6974, 102.1585],
+        info: "Tahun: 1902 - 1908. Dibina untuk menggantikan istana lama yang terbakar, berfungsi sebagai istana kediaman rasmi. (Muzium Diraja)"
+      },
+      {
+        nama: "Kota A Famosa (Melaka)",
         koordinat: [2.1923, 102.2497],
-        info: "Kota A Famosa dibina pada tahun 1511 oleh Portugis. Ia merupakan salah satu sisa binaan Eropah tertua di Asia!"
+        info: "Tahun: 1511. A Famosa sebagai kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda dan pusat pentadbiran. (Tapak Warisan Dunia UNESCO)"
       },
       {
-        nama: "Bangunan Sultan Abdul Samad",
-        koordinat: [3.1486, 101.6945],
-        info: "Terletak di Kuala Lumpur, bangunan ikonik ini siap dibina pada 1897 dan menjadi saksi penurunan bendera Union Jack pada tahun 1957."
+        nama: "Istana Besar Johor (Johor)",
+        koordinat: [1.4552, 103.7554],
+        info: "Tahun: 1866. Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi dan lokasi majlis rasmi kerajaan negeri. (Muzium Diraja)"
       },
       {
-        nama: "Fort Margherita",
+        nama: "Muzium Sungai Lembing (Pahang)",
+        koordinat: [3.9135, 103.0335],
+        info: "Tahun: 1906 - 1986. Dibina untuk menjalankan operasi perlombongan bijih timah bawah tanah oleh syarikat British (PCCL)."
+      },
+      {
+        nama: "Masjid Abidin (Terengganu)",
+        koordinat: [5.3340, 103.1423],
+        info: "Tahun: 1793. Dikenali sebagai Masjid Putih, dibina sebagai masjid utama dan masjid diraja Terengganu. (Bangunan Warisan Negara Malaysia)"
+      },
+      {
+        nama: "Istana Jahar (Kelantan)",
+        koordinat: [6.1322, 102.2374],
+        info: "Tahun: 1887. Dibina oleh Sultan Muhamad II sebagai anugerah dan hadiah istimewa kepada cucunda baginda. (Muzium Negeri)"
+      },
+      {
+        nama: "Tugu Peringatan Perang Kundasang (Sabah)",
+        koordinat: [5.9818, 116.5772],
+        info: "Tahun: 1962. Memperingati tawanan perang Australia, British, dan orang tempatan yang maut dalam 'Kawat Maut Sandakan'."
+      },
+      {
+        nama: "Kubu Margherita (Sarawak)",
         koordinat: [1.5606, 110.3456],
-        info: "Sebuah kubu lama di Kuching, Sarawak yang dibina pada tahun 1879 oleh Charles Brooke untuk melindungi bandar dari serangan lanun."
+        info: "Tahun: 1879. Dibina oleh Rajah Putih Charles Brooke untuk melindungi bandar Kuching daripada ancaman lanun. (Kubu Bersejarah / Muzium)"
+      },
+      {
+        nama: "Bangunan Sultan Abdul Samad (Kuala Lumpur)",
+        koordinat: [3.1486, 101.6945],
+        info: "Tahun: 1897. Dibina khusus untuk menempatkan pejabat-pejabat urusan pentadbiran kolonial British. (Bangunan Bersejarah Kebangsaan)"
       }
     ];
 
@@ -104,10 +81,7 @@
       
       // Bila marker diklik, tukar teks di kotak dialog bawah
       marker.on('click', function() {
-        dialogText.innerHTML = "<strong>" + lokasi.nama + ":</strong><br>" + lokasi.info;
+        dialogText.innerHTML = "<strong>" + lokasi.nama + "</strong><br>" + lokasi.info;
       });
     });
   </script>
-
-</body>
-</html>
