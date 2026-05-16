@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menjejak Warisan - NGGSIC 2026</title>
+  <title>Menjejak Warisan Metaverse - NGGSIC 2026</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
   <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -13,98 +14,93 @@
   <style>
     body {
       font-family: 'Press Start 2P', cursive;
-      background-color: #212529;
+      background-color: #0c001f; /* Warna body Metaverse sangat gelap */
       color: #fff;
-      padding: 80px 50px; 
+      padding: 40px; 
       margin: 0;
-    }
-    
-    /* Bingkai NGGSIC */
-    .poster-frame {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      pointer-events: none; 
-      mix-blend-mode: multiply;
     }
 
     .header-title {
       text-align: center;
-      margin-bottom: 10px;
-      color: #f7d51d;
-      text-shadow: 2px 2px #000;
-      font-size: 24px;
+      margin-bottom: 5px;
+      color: #00ffcc; /* Cyan Neon */
+      text-shadow: 0 0 10px #00ffcc, 2px 2px #000;
+      font-size: 28px;
     }
     
     .sub-title {
       text-align: center;
-      margin-bottom: 30px;
-      color: #00ffcc;
-      font-size: 12px;
+      margin-bottom: 40px;
+      color: #f7d51d; /* Emas Neon */
+      font-size: 11px;
       text-shadow: 1px 1px #000;
     }
 
-    #map-container {
-      background-color: white;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 4px solid #000;
+    /* KOD BARU: Bekas Khas Peta berserta Bingkai */
+    #map-wrapper {
       position: relative;
-      z-index: 10;
-      box-shadow: 0 0 20px #00ffcc;
+      width: 100%;
+      height: 480px; /* Ketinggian sedikit lebih daripada peta untuk nampak frame di bawah */
+      margin-bottom: 30px;
+      padding: 10px; /* Ruang untuk frame */
+      background: rgba(255,255,255,0.05); /* Sedikit glow di belakang peta */
+      border: 3px solid #000;
     }
 
     #map {
-      height: 450px;
+      height: 100%;
       width: 100%;
+      border: 3px solid #000;
+      box-shadow: 0 0 15px #00ffcc; /* Efek 'glow' cyber pada peta */
+      position: relative;
+      z-index: 5;
     }
 
-    /* Kotak Petunjuk (Legend) di dalam Peta */
-    .legend-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: black;
-      padding: 10px;
-      border: 3px solid black;
-      font-size: 8px;
-      line-height: 1.8;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-    .legend-box h4 {
-      font-size: 10px;
-      color: #d2691e;
-      border-bottom: 2px solid black;
-      padding-bottom: 5px;
-      margin-bottom: 8px;
+    /* KOD BARU: Tetapan untuk Frame NGGSIC menutupi Peta sahaja */
+    .map-frame-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99; /* Sentiasa di atas peta, tapi di bawah tajuk website */
+      pointer-events: none; /* MEMBOLEHKAN klik peta 'tembus' melalui frame */
+      mix-blend-mode: screen; /* Hilangkan warna hitam dari frame, biarkan glow sahaja */
+      opacity: 0.9;
     }
 
     .dialog-box {
       background-color: white;
       color: black;
       margin-top: 20px;
-      min-height: 180px;
-      position: relative;
-      z-index: 10;
+      min-height: 160px;
     }
     
     #npc-avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       image-rendering: pixelated;
       border: 3px solid black;
       background: #eee;
-      flex-shrink: 0;
     }
-
+    
     #dialog-text {
-      font-size: 11px; 
-      line-height: 1.6;
+        font-size: 11px;
+        line-height: 1.6;
     }
 
-    /* Gaya untuk Sumber Maklumat */
+    #timeline-container {
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 80px;
+    }
+    
+    #timeline-image {
+        max-width: 90%;
+        height: auto;
+        border: 4px solid #fff;
+    }
+
     .source-text {
       color: #209cee;
       font-size: 9px;
@@ -112,19 +108,6 @@
       margin-top: 10px;
       border-top: 1px dashed #ccc;
       padding-top: 5px;
-    }
-
-    #timeline-container {
-      text-align: center;
-      margin-top: 40px;
-      padding-bottom: 100px;
-      position: relative;
-      z-index: 10;
-    }
-    
-    #timeline-image {
-      max-width: 90%;
-      border: 5px solid #fff;
     }
 
     #hidden-assets { display: none; }
@@ -137,513 +120,87 @@
     }
     
     @keyframes blinker {
-      50% { opacity: 0.7; }
+      50% { opacity: 0.8; }
     }
+
+    /* KOD BARU: Kelas Khas untuk Marker Hologram */
+    .hologram-marker-img {
+        mix-blend-mode: screen; /* INI KOD MAGIS TU: Latar belakang hitam marker hilang, glowing sahaja tinggal */
+    }
+
   </style>
 </head>
 <body>
 
-  <img src="frame.png.jpeg" class="poster-frame" alt="Frame NGGSIC">
-
   <h2 class="header-title">MENJEJAK WARISAN</h2>
   <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA"</h3>
 
-  <div class="nes-container is-rounded" id="map-container">
+  <div class="nes-container is-rounded" id="map-wrapper">
     <div id="map"></div>
+    <img src="frame.png.jpeg" class="map-frame-overlay" alt="Frame NGGSIC Overlay">
   </div>
 
   <section class="nes-container with-title dialog-box">
     <p class="title">Maklumat Lokasi Sejarah</p>
     <div style="display: flex; align-items: flex-start; gap: 20px;">
-      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar">
+      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar NPC">
       <div id="dialog-text">
-        <p>Sistem Diaktifkan. Sila rujuk kotak 'PETUNJUK' dan klik pada pin bangunan di atas peta untuk memuat turun data rekod warisan berserta sumber rujukan.</p>
+        <p>Sistem Diaktifkan. Sila klik pada hologram neon 'Warisan Dijejak' di atas peta untuk memuat turun data rekod warisan berserta sumber rujukan.</p>
       </div>
     </div>
   </section>
 
   <div id="timeline-container">
-    <h3 style="color: #f7d51d; margin-bottom: 20px;">PEREDARAN MASA</h3>
-    <img src="cart.jpeg" id="timeline-image" alt="Carta Linimasa">
+    <h3 style="color: #f7d51d; margin-bottom: 25px;">PEREDARAN MASA</h3>
+    <img src="timeline.png" id="timeline-image" alt="Carta Linimasa">
   </div>
-
+  
   <div id="hidden-assets">
     <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="default-avatar">
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
-    var map = L.map('map').setView([4.2105, 101.9758], 6); 
+    var map = L.map('map').setView([4.2105, 101.9758], 6);
     
-    // Peta Satelit Esri
+    // Guna Peta Satelit Esri (Gaya Metaverse gelap)
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles © Esri'
     }).addTo(map);
 
-    // KOD DIKEMAS KINI: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
-    // Sila pastikan anda muat naik fail image_14.png ke GitHub dengan nama fail yang tepat: meta.jpeg
-    var markerIcon = L.icon({
-      iconUrl: 'meta.jpeg', // URL fail imej penanda peta baharu anda di GitHub
-      iconSize: [30, 30], // Ubah saiz ikon mengikut keperluan
-      iconAnchor: [15, 28], // Titik sauh ikon (bahagian bawah tengah pin)
-      popupAnchor: [0, -30] // Titik sauh popup (bahagian atas pin)
+    // KOD BARU: Cipta Ikon Hologram Tersuai (Pastikan marker-meta.jpg ada di GitHub)
+    var hologramIcon = L.icon({
+      iconUrl: 'marker-meta.jpg', // Fail marker neon dari image_6.png
+      iconSize: [40, 40], // Saiz ikon
+      iconAnchor: [20, 40], // Titik sauh ikon (bahagian bawah tengah papan tanda)
+      popupAnchor: [0, -40], // Titik sauh popup (bahagian atas tanda)
+      className: 'hologram-marker-img' // Gunakan kelas CSS untuk mix-blend-mode
     });
 
-    // Kotak Petunjuk
-    var legend = L.control({position: 'bottomleft'});
-    legend.onAdd = function (map) {
-      var div = L.DomUtil.create('div',Oh, saya faham! Sila namakan imej sebagai `meta.jpeg` dan muat naik ke GitHub. Itu akan menjadikannya penanda peta baharu anda.
-
-Sila ikut langkah-langkah di bawah untuk mengemas kini kod anda:
-
-1.  **Sila Muat Naik Imej Penanda Peta:** Sila muat naik fail imej ke GitHub anda dengan nama fail yang tepat: `meta.jpeg`.
-2.  **Sila Ganti Kod HTML:** Sila padam semua kod lama dalam fail `index.html` anda dan tampal kod penuh yang dikemas kini di bawah. Saya telah mengubah suai kod untuk menggunakan ikon penanda peta tersuai baharu anda. Saya juga telah memastikan semua nama fail imej negeri adalah tepat seperti dalam GitHub anda.
-
----
-
-### Kod Penuh `index.html` (Sila Copy & Tampal Sepenuhnya):
-
-```html
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menjejak Warisan - NGGSIC 2026</title>
-
-  <link href="[https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap](https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap)" rel="stylesheet">
-  <link href="[https://unpkg.com/nes.css@latest/css/nes.min.css](https://unpkg.com/nes.css@latest/css/nes.min.css)" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
-
-  <style>
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #212529;
-      color: #fff;
-      padding: 80px 50px; 
-      margin: 0;
-    }
-    
-    /* Bingkai NGGSIC */
-    .poster-frame {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      pointer-events: none; 
-      mix-blend-mode: multiply;
-    }
-
-    .header-title {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #f7d51d;
-      text-shadow: 2px 2px #000;
-      font-size: 24px;
-    }
-    
-    .sub-title {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #00ffcc;
-      font-size: 12px;
-      text-shadow: 1px 1px #000;
-    }
-
-    #map-container {
-      background-color: white;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 4px solid #000;
-      position: relative;
-      z-index: 10;
-      box-shadow: 0 0 20px #00ffcc;
-    }
-
-    #map {
-      height: 450px;
-      width: 100%;
-    }
-
-    /* Kotak Petunjuk (Legend) di dalam Peta */
-    .legend-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: black;
-      padding: 10px;
-      border: 3px solid black;
-      font-size: 8px;
-      line-height: 1.8;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-    .legend-box h4 {
-      font-size: 10px;
-      color: #d2691e;
-      border-bottom: 2px solid black;
-      padding-bottom: 5px;
-      margin-bottom: 8px;
-    }
-
-    .dialog-box {
-      background-color: white;
-      color: black;
-      margin-top: 20px;
-      min-height: 180px;
-      position: relative;
-      z-index: 10;
-    }
-    
-    #npc-avatar {
-      width: 100px;
-      height: 100px;
-      image-rendering: pixelated;
-      border: 3px solid black;
-      background: #eee;
-      flex-shrink: 0;
-    }
-
-    #dialog-text {
-      font-size: 11px; 
-      line-height: 1.6;
-    }
-
-    /* Gaya untuk Sumber MaklumatSila ikut langkah-langkah di bawah untuk mengemas kini kod anda:
-
-1.  **Sila Muat Naik Imej Penanda Peta:** Sila muat naik fail imej ke GitHub anda dengan nama fail yang tepat: `meta.jpeg`.
-2.  **Sila Ganti Kod HTML:** Sila padam semua kod lama dalam fail `index.html` anda dan tampal kod penuh yang dikemas kini di bawah. Saya telah mengubah suai kod untuk menggunakan ikon penanda peta tersuai baharu anda. Saya juga telah memastikan semua nama fail imej negeri adalah tepat seperti dalam GitHub anda.
-
----
-
-### Kod Penuh `index.html` (Sila Copy & Tampal Sepenuhnya):
-
-```html
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menjejak Warisan - NGGSIC 2026</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <style>
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #212529;
-      color: #fff;
-      padding: 80px 50px; 
-      margin: 0;
-    }
-    
-    /* Bingkai NGGSIC */
-    .poster-frame {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      pointer-events: none; 
-      mix-blend-mode: multiply;
-    }
-
-    .header-title {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #f7d51d;
-      text-shadow: 2px 2px #000;
-      font-size: 24px;
-    }
-    
-    .sub-title {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #00ffcc;
-      font-size: 12px;
-      text-shadow: 1px 1px #000;
-    }
-
-    #map-container {
-      background-color: white;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 4px solid #000;
-      position: relative;
-      z-index: 10;
-      box-shadow: 0 0 20px #00ffcc;
-    }
-
-    #map {
-      height: 450px;
-      width: 100%;
-    }
-
-    /* Kotak Petunjuk (Legend) di dalam Peta */
-    .legend-box {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: black;
-      padding: 10px;
-      border: 3px solid black;
-      font-size: 8px;
-      line-height: 1.8;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-    .legend-box h4 {
-      font-size: 10px;
-      color: #d2691e;
-      border-bottom: 2px solid black;
-      padding-bottom: 5px;
-      margin-bottom: 8px;
-    }
-
-    .dialog-box {
-      background-color: white;
-      color: black;
-      margin-top: 20px;
-      min-height: 180px;
-      position: relative;
-      z-index: 10;
-    }
-    
-    #npc-avatar {
-      width: 100px;
-      height: 100px;
-      image-rendering: pixelated;
-      border: 3px solid black;
-      background: #eee;
-      flex-shrink: 0;
-    }
-
-    #dialog-text {
-      font-size: 11px; 
-      line-height: 1.6;
-    }
-
-    /* Gaya untuk Sumber Maklumat */
-    .source-text {
-      color: #209cee;
-      font-size: 9px;
-      display: block;
-      margin-top: 10px;
-      border-top: 1px dashed #ccc;
-      padding-top: 5px;
-    }
-
-    #timeline-container {
-      text-align: center;
-      margin-top: 40px;
-      padding-bottom: 100px;
-      position: relative;
-      z-index: 10;
-    }
-    
-    #timeline-image {
-      max-width: 90%;
-      border: 5px solid #fff;
-    }
-
-    #hidden-assets { display: none; }
-    
-    .metaverse-btn {
-        margin-top: 15px;
-        font-size: 10px !important;
-        animation: blinker 1.5s linear infinite;
-        display: inline-block;
-    }
-    
-    @keyframes blinker {
-      50% { opacity: 0.7; }
-    }
-  </style>
-</head>
-<body>
-
-  <img src="frame.png.jpeg" class="poster-frame" alt="Frame NGGSIC">
-
-  <h2 class="header-title">MENJEJAK WARISAN</h2>
-  <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA"</h3>
-
-  <div class="nes-container is-rounded" id="map-container">
-    <div id="map"></div>
-  </div>
-
-  <section class="nes-container with-title dialog-box">
-    <p class="title">Maklumat Lokasi Sejarah</p>
-    <div style="display: flex; align-items: flex-start; gap: 20px;">
-      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar">
-      <div id="dialog-text">
-        <p>Sistem Diaktifkan. Sila rujuk kotak 'PETUNJUK' dan klik pada pin bangunan di atas peta untuk memuat turun data rekod warisan berserta sumber rujukan.</p>
-      </div>
-    </div>
-  </section>
-
-  <div id="timeline-container">
-    <h3 style="color: #f7d51d; margin-bottom: 20px;">PEREDARAN MASA</h3>
-    <img src="cart.jpeg" id="timeline-image" alt="Carta Linimasa">
-  </div>
-
-  <div id="hidden-assets">
-    <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="default-avatar">
-  </div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map').setView([4.2105, 101.9758], 6); 
-    
-    // Peta Satelit Esri
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles © Esri'
-    }).addTo(map);
-
-    // KOD DIKEMAS KINI: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
-    // Sila pastikan anda muat naik fail image_14.png ke GitHub dengan nama fail yang tepat: meta.jpeg
-    var markerIcon = L.icon({
-      iconUrl: 'meta.jpeg', // URL fail imej penanda peta baharu anda di GitHub
-      iconSize: [30, 30], // Ubah saiz ikon mengikut keperluan
-      iconAnchor: [15, 28], // Titik sauh ikon (bahagian bawah tengah pin)
-      popupAnchor: [0, -30] // Titik sauh popup (bahagian atas pin)
-    });
-
-    // Kotak Petunjuk
-    var legend = L.control({position: 'bottomleft'});
-    legend.onAdd = function (map) {
-      var div = L.DomUtil.create('div', 'legend-box nes-container is-rounded');
-      div.innerHTML = `
-        <h4>PETUNJUK LOKASI</h4>
-        <ol style="padding-left: 20px; margin: 0;">
-          <li>Muzium Kota Kayang (PLS)</li>
-          <li>Balai Besar (KDH)</li>
-          <li>Khoo Kongsi (PNG)</li>
-          <li>Menara Condong (PRK)</li>
-          <li>Bgn Sultan Abdul Samad (KUL)</li>
-          <li>Istana Bandar Jugra (SGR)</li>
-          <li>Istana Seri Menanti (NSN)</li>
-          <li>Kota A Famosa (MLK)</li>
-          <li>Istana Besar Johor (JHR)</li>
-          <li>Muzium Sg Lembing (PHG)</li>
-          <li>Masjid Abidin (TRG)</li>
-          <li>Istana Jahar (KTN)</li>
-        </ol>
-      `;
-      return div;
-    };
-    legend.addTo(map);
-
-    // DATA LENGKAP BERSERTA SUMBER
+    // Data Lokasi Lengkap dengan Nama Fail Baru
     var lokasiWarisan = [
-      { 
-        n: "1. Muzium Kota Kayang (Perlis)", 
-        t: "1999", 
-        c: [6.4172, 100.1706], 
-        i: "Muzium ini terletak di atas tapak bersejarah seluas 4.84 hektar. Bangunan asalnya adalah replika kediaman rasmi Syed Alwi (Raja Perlis) sebelum ia diambil alih dan dijadikan kediaman rasmi Penasihat British pertama di Perlis, Mr. Meadowe Frost. Ia kini menempatkan pelbagai artifak termasuk Galeri Senjata dan Galeri Diraja Perlis.", 
-        src: "Jabatan Muzium Malaysia (JMM)",
-        img: "PERLIS.png" // Sila pastikan fail PERLIS.png dimuat naik ke GitHub
-      },
-      { 
-        n: "2. Balai Besar (Kedah)", 
-        t: "1735", 
-        c: [6.1206, 100.3664], 
-        i: "Balai Besar dibina oleh Sultan Muhammad Jiwa Zainal Adilin Muazzam Shah II. Walaupun pernah musnah akibat serangan armada Bugis (1770) dan tentera Siam (1821), ia telah dibina semula. Fungsinya kekal sebagai pusat acara rasmi diraja termasuk majlis pertabalan Sultan Kedah dari abad ke-18 hingga kini.", 
-        src: "Perbadanan Perpustakaan Awam Kedah / Pelancongan Negeri Kedah",
-        img: "kedah.png" // Sila pastikan fail kedah.png dimuat naik ke GitHub
-      },
-      { 
-        n: "3. Leong San Tong Khoo Kongsi (Pulau Pinang)", 
-        t: "1906", 
-        c: [5.4141, 100.3375], 
-        i: "Dikenali sebagai salah satu rumah kongsi keturunan Cina (clanhouse) yang paling megah dan berhias indah di Asia Tenggara. Siap dibina sepenuhnya pada tahun 1906, ia berfungsi sebagai pusat perpaduan keluarga Khoo dari wilayah Hokkien, China. Seni binanya mempamerkan ukiran naga, bumbung berlapis, dan seramik hiasan gred tinggi.", 
-        src: "Penang Heritage Trust (PHT) & Portal Rasmi Khoo Kongsi",
-        img: "penang.png" // Sila pastikan fail penang.png dimuat naik ke GitHub
-      },
-      { 
-        n: "4. Menara Condong Teluk Intan (Perak)", 
-        t: "1885", 
-        c: [4.0253, 101.0195], 
-        i: "Dibina oleh arkitek Cina bernama Leong Choon Chong pada asalnya sebagai sebuah tangki simpanan air untuk membekalkan air kepada penduduk tempatan, terutamanya jika berlaku kemarau atau kebakaran. Struktur pagoda 8 tingkat ini mulai condong akibat beban air dan struktur tanah di kawasan tersebut yang lembut dan berpaya.", 
-        src: "Majlis Perbandaran Teluk Intan (MPTI)",
-        img: "PERAK.png" // Sila pastikan fail PERAK.png dimuat naik ke GitHub
-      },
-      { 
-        n: "5. Bangunan Sultan Abdul Samad (Kuala Lumpur)", 
-        t: "1897", 
-        c: [3.1486, 101.6945], 
-        i: "Merupakan ikonik mercu tanda Kuala Lumpur, direka oleh arkitek A.C. Norman and R.A.J. Bidwell. Seni bina berkonsepkan Moorish dan Moghul ini dibina menggunakan lebih 4 juta batu bata. Ia mula digunakan sebagai Pusat Pentadbiran Kerajaan Kolonial British (Sekretariat) sebelum dijadikan Mahkamah Persekutuan Malaysia.", 
-        src: "Jabatan Warisan Negara, Kementerian Pelancongan",
-        img: "KL.png" // Sila pastikan fail KL.png dimuat naik ke GitHub
-      },
-      { 
-        n: "6. Istana Bandar Jugra (Selangor)", 
-        t: "1899", 
-        c: [2.8596, 101.4428], 
-        i: "Istana dua tingkat ini dibina atas cetusan idea Sultan Alaeddin Sulaiman Shah, Sultan Selangor ke-5. Reka bentuknya sangat unik, menggabungkan seni bina tempatan dengan sentuhan Islam-Moorish. Ia mempunyai 40 buah bilik dan menjadi tempat kelahiran Almarhum Sultan Salahuddin Abdul Aziz Shah.", 
-        src: "Perbadanan Adat Melayu dan Warisan Negeri Selangor (PADAT)",
-        img: "Selangor.png" // Sila pastikan fail Selangor.png dimuat naik ke GitHub
-      },
-      { 
-        n: "7. Muzium Diraja Istana Seri Menanti (N. Sembilan)", 
-        t: "1902", 
-        c: [2.6974, 102.1585], 
-        i: "Dibina bermula tahun 1902 dan siap pada tahun 1908 oleh dua pakar pertukangan tempatan iaitu Tukang Kahar dan Tukang Taib. Keunikan utama istana kayu ini adalah pembinaannya yang tidak menggunakan sebatang paku besi pun (hanya menggunakan pasak kayu) dan disokong oleh 99 batang tiang kayu cengal tebuk.", 
-        src: "Lembaga Muzium Negeri Sembilan (LMNS)",
-        img: "N. 9.png" // Sila pastikan fail N. 9.png dimuat naik ke GitHub
-      },
-      { 
-        n: "8. Kota A Famosa & Stadthuys (Melaka)", 
-        t: "1511", 
-        c: [2.1923, 102.2497], 
-        i: "A Famosa dibina oleh tentera Portugis pimpinan Alfonso de Albuquerque (1511) sebagai kubu pertahanan. Berhampirannya terletaknya Stadthuys (1650), bangunan berwarna merah yang dibina oleh Syarikat Hindia Timur Belanda (VOC). Stadthuys direkodkan sebagai bangunan kolonial Belanda tertua yang masih wujud di Asia Tenggara.", 
-        src: "Perbadanan Muzium Melaka (PERZIM)",
-        img: "" // Tiada imej khusus disediakan
-      },
-      { 
-        n: "9. Istana Besar Johor (Johor)", 
-        t: "1866", 
-        c: [1.4552, 103.7554], 
-        i: "Sebuah istana megah berkonsepkan seni bina Anglo-Melayu yang dibina oleh Bapa Pemodenan Johor, Sultan Abu Bakar. Ia menghadap Selat Tebrau dan pernah menjadi kediaman rasmi Sultan Johor. Kini, ia menempatkan Muzium Diraja Abu Bakar yang menyimpan perhiasan kebesaran darjat diraja Johor.", 
-        src: "Yayasan Warisan Johor (YWJ)",
-        img: "Johor.png" // Sila pastikan fail Johor.png dimuat naik ke GitHub
-      },
-      { 
-        n: "10. Muzium Sungai Lembing (Pahang)", 
-        t: "1906", 
-        c: [3.9135, 103.0335], 
-        i: "Bangunan kolonial ini pada asalnya dibina sebagai kediaman rasmi pengurus besar syarikat perlombongan British, Pahang Consolidated Company Limited (PCCL). Sungai Lembing pernah memegang gelaran lombong bijih timah bawah tanah yang terbesar dan terdalam di dunia (digelar El-Dorado Timur).", 
-        src: "Majlis Bandaraya Kuantan & Jabatan Muzium Malaysia",
-        img: "" // Tiada imej khusus disediakan
-      },
-      { 
-        n: "11. Masjid Abidin / Masjid Putih (Terengganu)", 
-        t: "1793", 
-        c: [5.3340, 103.1423], 
-        i: "Masjid diraja ini dibina oleh Sultan Zainal Abidin II (Marhum Masjid) and diiktiraf sebagai masjid tertua di Terengganu. Pembinaan awalnya diperbuat daripada kayu sebelum ditukar kepada konkrit. Senibinanya sangat klasik kerana ia tidak mempunyai kubah seperti masjid moden, sebaliknya menggunakan bumbung limas tempatan.", 
-        src: "Lembaga Muzium Negeri Terengganu",
-        img: "TERENGGANU.png" // Sila pastikan fail TERENGGANU.png dimuat naik ke GitHub
-      },
-      { 
-        n: "12. Istana Jahar (Kelantan)", 
-        t: "1887", 
-        c: [6.1322, 102.2374], 
-        i: "Dibina oleh Sultan Muhamad II sebagai anugerah untuk cucunda baginda (Long Kundur). Istana kayu ini dinamakan bersempena nama sejenis pokok, iaitu Pokok Jahar. Reka bentuknya membuktikan kehalusan seni ukir tukang kayu Kelantan. Ia kini diwartakan sebagai Muzium Adat Istiadat Diraja Kelantan.", 
-        src: "Perbadanan Muzium Negeri Kelantan",
-        img: "Kelantan.png" // Sila pastikan fail Kelantan.png dimuat naik ke GitHub
-      }
+      { n: "1. Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Tapak kediaman keluarga bangsawan Raja Perlis, kemudian kediaman rasmi Penasihat British. Kini menyimpan artifak Galeri Senjata dan Galeri Diraja Perlis.", src: "Jabatan Muzium Malaysia (JMM)", img: "PERLIS.png" },
+      { n: "2. Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina oleh Sultan Muhammad Jiwa Jiwa Zainal Adilin II. Pusat acara rasmi diraja termasuk majlis pertabalan Sultan Kedah dari abad ke-18 hingga kini.", src: "Perbadanan Perpustakaan Awam Kedah / Pelancongan Negeri Kedah", img: "kedah.png" },
+      { n: "3. Leong San Tong Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Rumah kongsi keturunan Cina paling megah di Asia Tenggara. Pusat perpaduan keluarga Khoo dari wilayah Hokkien, China dengan seni bina ukiran naga gred tinggi.", src: "Penang Heritage Trust (PHT) & Portal Rasmi Khoo Kongsi", img: "penang.png" },
+      { n: "4. Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Asalnya tangki air oleh arkitek Leong Choon Chong. Mula condong akibat struktur tanah berpaya dan beban air. Ikonik pagoda 8 tingkat.", src: "Majlis Perbandaran Teluk Intan (MPTI)", img: "PERAK.png" },
+      { n: "5. Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Ikon Kuala Lumpur. Dibina berkonsepkan Moorish dan Moghul. Pusat pentadbiran kolonial British sebelum dijadikan Mahkamah Persekutuan.", src: "Jabatan Warisan Negara, Kementerian Pelancongan", img: "KL.png" },
+      { n: "6. Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Pusat pentadbiran diraja Selangor cetusan idea Sultan Alaeddin. Unik dengan gabungan seni bina Islam-Moorish.", src: "Perbadanan Adat Melayu dan Warisan Negeri Selangor (PADAT)", img: "Selangor.png" },
+      { n: "7. Muzium Diraja Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina tanpa paku besi (hanya pasak kayu) oleh Tukang Kahar and Tukang Taib. Keunikan 99 batang tiang kayu cengal.", src: "Lembaga Muzium Negeri Sembilan (LMNS)", img: "N. 9.png" },
+      { n: "8. Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis Alfonso de Albuquerque. Kediaman rasmi Gabenor Belanda. Bangunan kolonial Belanda tertua wujud di Asia Tenggara.", src: "Perbadanan Muzium Melaka (PERZIM)", img: "melaka.png" },
+      { n: "9. Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Kediaman rasmi Sultan Abu Bakar. Konsep Anglo-Melayu menghadap Selat Tebrau. Kini Muzium Diraja Abu Bakar.", src: "Yayasan Warisan Johor (YWJ)", img: "Johor.png" },
+      { n: "10. Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Lombong bijih timah bawah tanah terdalam dan terbesar di dunia. Bekas kediaman pengurus syarikat perlombongan British.", src: "Majlis Bandaraya Kuantan & Jabatan Muzium Malaysia", img: "pahang.png" },
+      { n: "11. Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid diraja utama Terengganu yang dikenali sebagai Masjid Putih. Diiktiraf sebagai masjid tertua di negeri.", src: "Lembaga Muzium Negeri Terengganu", img: "TERENGGANU.png" },
+      { n: "12. Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Dibina oleh Sultan Muhamad II sebagai anugerah untuk cucunda baginda. Seni ukir kehalusan tukang kayu Kelantan.", src: "Perbadanan Muzium Negeri Kelantan", img: "Kelantan.png" }
     ];
 
     var dialogText = document.getElementById("dialog-text");
     var npcAvatar = document.getElementById("npc-avatar");
     var defaultImg = document.getElementById("default-avatar").src;
 
-    // 4. KOD DIKEMAS KINI: Gunakan penanda peta baharu 'markerIcon' dalam gelung 'forEach'
     lokasiWarisan.forEach(function(l) {
-      // Tambahkan ikon tersuai di sini
-      var marker = L.marker(l.c, {icon: markerIcon}).addTo(map);
+      // Gunakan hologramIcon menggantikan pin biru biasa
+      var marker = L.marker(l.c, {icon: hologramIcon}).addTo(map);
       marker.on('click', function() {
         
         var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
