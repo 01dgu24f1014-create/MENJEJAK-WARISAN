@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jejak Warisan Digital Malaysia - NGGSIC 2026</title>
+  <title>Menjejak Warisan - NGGSIC 2026</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
@@ -33,9 +33,18 @@
 
     .header-title {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       color: #f7d51d;
       text-shadow: 2px 2px #000;
+      font-size: 24px;
+    }
+    
+    .sub-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffcc;
+      font-size: 12px;
+      text-shadow: 1px 1px #000;
     }
 
     #map-container {
@@ -49,8 +58,27 @@
     }
 
     #map {
-      height: 400px;
+      height: 450px;
       width: 100%;
+    }
+
+    /* Kotak Petunjuk (Legend) di dalam Peta */
+    .legend-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+      padding: 10px;
+      border: 3px solid black;
+      font-size: 8px;
+      line-height: 1.8;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+    .legend-box h4 {
+      font-size: 10px;
+      color: #d2691e;
+      border-bottom: 2px solid black;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     .dialog-box {
@@ -85,7 +113,6 @@
 
     #hidden-assets { display: none; }
     
-    /* Butang Metaverse */
     .metaverse-btn {
         margin-top: 15px;
         font-size: 10px !important;
@@ -101,24 +128,25 @@
 
   <img src="frame.png.jpeg" class="poster-frame" alt="Frame NGGSIC">
 
-  <h2 class="header-title">JEJAK WARISAN MALAYSIA</h2>
+  <h2 class="header-title">MENJEJAK WARISAN</h2>
+  <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA"</h3>
 
   <div class="nes-container is-rounded" id="map-container">
     <div id="map"></div>
   </div>
 
   <section class="nes-container with-title dialog-box">
-    <p class="title">Pemandu Sejarah</p>
+    <p class="title">Maklumat Lokasi</p>
     <div style="display: flex; align-items: center; gap: 20px;">
       <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar">
       <div id="dialog-text">
-        <p>Selamat datang! Sila klik pin pada peta untuk melihat sejarah mengikut linimasa warisan kita.</p>
+        <p>Selamat datang! Sila rujuk Petunjuk dan klik pin berbentuk bangunan pada peta untuk melihat sejarah warisan kita.</p>
       </div>
     </div>
   </section>
 
   <div id="timeline-container">
-    <h3 style="color: #f7d51d; margin-bottom: 20px;">RUJUKAN LINIMASA</h3>
+    <h3 style="color: #f7d51d; margin-bottom: 20px;">PEREDARAN MASA</h3>
     <img src="cart.jpeg" id="timeline-image" alt="Carta Linimasa">
   </div>
 
@@ -128,29 +156,60 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([4.2105, 101.9758], 5); // Zum diturunkan sikit ke tahap 5 untuk nampak Sabah/Sarawak
+    var map = L.map('map').setView([4.2105, 101.9758], 5); 
     
-    // Peta Satelit Esri (Gaya Metaverse)
+    // Peta Satelit Esri
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles © Esri'
     }).addTo(map);
 
-    // Data Lokasi Lengkap
+    // KOD BARU: Cipta Ikon Bangunan Tersuai (Custom Icon)
+    var buildingIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png', // Ikon bangunan bersejarah percuma
+      iconSize: [35, 35],
+      iconAnchor: [17, 35],
+      popupAnchor: [0, -35]
+    });
+
+    // KOD BARU: Tambah Kotak Petunjuk (Legend) ke dalam peta
+    var legend = L.control({position: 'bottomleft'});
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'legend-box nes-container is-rounded');
+      div.innerHTML = `
+        <h4>PETUNJUK</h4>
+        <ol style="padding-left: 20px; margin: 0;">
+          <li>Muzium Kota Kayang</li>
+          <li>Balai Besar</li>
+          <li>Leong San Tong Khoo Kongsi</li>
+          <li>Menara Condong</li>
+          <li>Bangunan Sultan Abdul Samad</li>
+          <li>Istana Bandar Jugra</li>
+          <li>Muzium Diraja Istana Seri Menanti</li>
+          <li>Kota A Famosa</li>
+          <li>Istana Besar Johor</li>
+          <li>Muzium Sungai Lembing</li>
+          <li>Masjid Abidin</li>
+          <li>Istana Jahar</li>
+        </ol>
+      `;
+      return div;
+    };
+    legend.addTo(map);
+
+    // Data Lokasi Lengkap dengan Nama Fail Baru
     var lokasiWarisan = [
-      { n: "Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda.", img: "" },
-      { n: "Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina untuk majlis diraja seperti pertabalan sultan.", img: "kedah.png" },
-      { n: "Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi.", img: "Johor.png" },
-      { n: "Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid diraja utama Terengganu yang dikenali sebagai Masjid Putih.", img: "Terengganu.png" },
-      { n: "Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Asalnya tangki simpanan air untuk kegunaan harian dan kecemasan.", img: "" },
-      { n: "Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Anugerah Sultan Muhamad II kepada cucunda baginda.", img: "Kelantan.png" },
-      { n: "Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Menempatkan pejabat-pejabat urusan pentadbiran kolonial British.", img: "KL.png" },
-      { n: "Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Pusat pentadbiran diraja Selangor cetusan idea Sultan Sir Alaeddin.", img: "Selangor.png" },
-      { n: "Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina untuk menggantikan istana lama yang terbakar.", img: "N. 9.png" },
-      { n: "Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Rumah persatuan (clanhouse) untuk menyatukan ahli keluarga.", img: "penang.png" },
-      { n: "Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Pusat perlombongan bijih timah bawah tanah terdalam.", img: "" },
-      { n: "Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Tapak kediaman keluarga bangsawan dan kerabat diraja.", img: "" },
-      { n: "Tugu Peringatan Perang Kundasang (Sabah)", t: "1962", c: [5.9846, 116.5772], i: "Memperingati tawanan perang yang maut dalam Kawat Maut Sandakan.", img: "" },
-      { n: "Kubu Margherita (Sarawak)", t: "1879", c: [1.5606, 110.3467], i: "Dibina oleh Rajah Putih Charles Brooke untuk melindungi bandar Kuching.", img: "" }
+      { n: "1. Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Tapak kediaman keluarga bangsawan dan kerabat diraja.", img: "PERLIS.png" },
+      { n: "2. Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina untuk majlis diraja seperti pertabalan sultan.", img: "kedah.png" },
+      { n: "3. Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Rumah persatuan (clanhouse) untuk menyatukan ahli keluarga.", img: "penang.png" },
+      { n: "4. Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Asalnya tangki simpanan air untuk kegunaan harian dan kecemasan.", img: "PERAK.png" },
+      { n: "5. Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Menempatkan pejabat-pejabat urusan pentadbiran kolonial British.", img: "KL.png" },
+      { n: "6. Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Pusat pentadbiran diraja Selangor cetusan idea Sultan Sir Alaeddin.", img: "Selangor.png" },
+      { n: "7. Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina untuk menggantikan istana lama yang terbakar.", img: "N. 9.png" },
+      { n: "8. Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda.", img: "" },
+      { n: "9. Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi.", img: "Johor.png" },
+      { n: "10. Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Pusat perlombongan bijih timah bawah tanah terdalam.", img: "" },
+      { n: "11. Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid diraja utama Terengganu yang dikenali sebagai Masjid Putih.", img: "TERENGGANU.png" },
+      { n: "12. Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Anugerah Sultan Muhamad II kepada cucunda baginda.", img: "Kelantan.png" }
     ];
 
     var dialogText = document.getElementById("dialog-text");
@@ -158,13 +217,13 @@
     var defaultImg = document.getElementById("default-avatar").src;
 
     lokasiWarisan.forEach(function(l) {
-      var marker = L.marker(l.c).addTo(map);
+      // Gunakan buildingIcon menggantikan pin biru biasa
+      var marker = L.marker(l.c, {icon: buildingIcon}).addTo(map);
       marker.on('click', function() {
         
-        // KOD BARU: Terus pautkan koordinat ke Google Street View 360
         var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
         
-        dialogText.innerHTML = "<strong>" + l.n + " (" + l.t + ")</strong><br><br>" + l.i + 
+        dialogText.innerHTML = "<strong>" + l.n + " (TAHUN " + l.t + ")</strong><br><br>" + l.i + 
         "<br><a href='" + metaverseLink + "' target='_blank' class='nes-btn is-success metaverse-btn'>MASUK METAVERSE 360°</a>";
         
         if (l.img !== "") {
