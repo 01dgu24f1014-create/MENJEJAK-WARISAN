@@ -3,71 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menjejak Warisan - NGGSIC 2026</title>
+  <title>Menjejak Warisan - Metaverse Edition</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  
-  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
+    /* LATAR BELAKANG GELAP */
     body {
       font-family: 'Press Start 2P', cursive;
-      background-color: #212529; /* Warna latar belakang gelap yang standard dan kemas */
+      background-color: #050505; 
+      background-image: radial-gradient(circle, #1a1a2e 0%, #050505 80%);
       color: #fff;
-      padding: 40px; 
+      padding: 30px; 
       margin: 0;
     }
 
+    /* KESAN NEON PADA TEKS */
     .header-title {
       text-align: center;
-      margin-bottom: 5px;
-      color: #f7d51d; /* Warna kuning/emas NES */
-      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de, 0 0 40px #ff00de;
+      font-size: 26px;
+      letter-spacing: 2px;
     }
     
     .sub-title {
       text-align: center;
       margin-bottom: 40px;
-      color: #fff;
-      font-size: 11px;
+      color: #e0ffff;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      font-size: 10px;
     }
 
-    /* Peta Kembali kepada Asal (Tanpa Frame) */
+    /* KESAN NEON PADA KOTAK PETA */
     .map-container {
-      background-color: white;
-      padding: 10px;
-      border: 4px solid #000;
+      padding: 5px;
       margin-bottom: 30px;
+      border: 3px solid #00ffff;
+      border-radius: 5px;
+      box-shadow: 0 0 15px #00ffff, inset 0 0 15px #00ffff;
+      background-color: #000;
     }
 
     #map {
       height: 500px;
       width: 100%;
-      border: 2px solid #000;
+      border-radius: 3px;
+      filter: contrast(1.1) brightness(0.9);
     }
 
+    /* KOTAK DIALOG NEON */
     .dialog-box {
-      background-color: white;
-      color: black;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
       margin-top: 20px;
+      padding: 25px;
       min-height: 180px;
+      border: 3px solid #39ff14; 
+      border-radius: 10px;
+      box-shadow: 0 0 15px #39ff14, inset 0 0 10px #39ff14;
+    }
+
+    .dialog-title {
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14;
+      margin-top: 0;
+      font-size: 14px;
+      border-bottom: 1px dashed #39ff14;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
     
     #npc-avatar {
-      width: 100px;
-      height: 100px;
-      image-rendering: pixelated;
-      border: 3px solid black;
-      background: #eee;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border: 2px solid #ff00de;
+      box-shadow: 0 0 10px #ff00de;
+      border-radius: 5px;
+      background: #111;
+      flex-shrink: 0;
     }
     
     #dialog-text {
         font-size: 11px;
         line-height: 1.8;
+        color: #e0ffff;
     }
 
+    .source-text {
+      color: #ffaa00;
+      font-size: 9px;
+      display: block;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px dashed #555;
+    }
+
+    /* BUTANG METAVERSE NEON */
+    .metaverse-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: transparent;
+        color: #ff00de;
+        text-decoration: none;
+        border: 2px solid #ff00de;
+        box-shadow: 0 0 10px #ff00de, inset 0 0 5px #ff00de;
+        font-size: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        text-transform: uppercase;
+    }
+
+    .metaverse-btn:hover {
+        background-color: #ff00de;
+        color: #fff;
+        box-shadow: 0 0 20px #ff00de;
+    }
+
+    /* TIMELINE */
     #timeline-container {
         text-align: center;
         margin-top: 50px;
@@ -77,66 +135,55 @@
     #timeline-image {
         max-width: 90%;
         height: auto;
-        border: 4px solid #fff;
-    }
-
-    .source-text {
-      color: #209cee;
-      font-size: 9px;
-      display: block;
-      margin-top: 15px;
-      border-top: 1px dashed #ccc;
-      padding-top: 10px;
-    }
-
-    #hidden-assets { display: none; }
-    
-    .metaverse-btn {
-        margin-top: 15px;
-        font-size: 10px !important;
+        border: 2px solid #00ffff;
+        box-shadow: 0 0 20px #00ffff;
+        border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
   <h2 class="header-title">MENJEJAK WARISAN</h2>
-  <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA"</h3>
+  <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA" // METAVERSE HUB</h3>
 
   <div class="map-container">
     <div id="map"></div>
   </div>
 
-  <section class="nes-container with-title dialog-box">
-    <p class="title">Maklumat Lokasi Sejarah</p>
-    <div style="display: flex; align-items: flex-start; gap: 20px;">
-      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar NPC">
+  <section class="dialog-box">
+    <h3 class="dialog-title">TERMINAL DATA SEJARAH</h3>
+    <div style="display: flex; align-items: flex-start; gap: 25px;">
+      <img src="https://via.placeholder.com/120/000000/39ff14?text=STANDBY" id="npc-avatar" alt="Paparan Imej">
       <div id="dialog-text">
-        <p>Selamat datang! Sila klik pada mana-mana pin biru di atas peta untuk membaca sejarah terperinci tentang warisan negara kita.</p>
+        <p>Sistem sedia... Sila pilih pin lokasi 3D pada peta untuk mengakses arkib sejarah.</p>
       </div>
     </div>
   </section>
 
   <div id="timeline-container">
-    <h3 style="color: #f7d51d; margin-bottom: 25px;">PEREDARAN MASA</h3>
+    <h3 style="color: #00ffff; text-shadow: 0 0 10px #00ffff; margin-bottom: 25px;">[ PEREDARAN MASA ]</h3>
     <img src="timeline.png" id="timeline-image" alt="Carta Linimasa">
-  </div>
-  
-  <div id="hidden-assets">
-    <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="default-avatar">
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Set Peta kembali kepada standard
     var map = L.map('map').setView([4.2105, 101.9758], 6);
     
-    // Menggunakan peta asas OpenStreetMap yang terang dan kemas
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+    // TEMA GELAP (DARK THEME MAP)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap contributors & CartoDB'
     }).addTo(map);
 
-    // Data Lokasi Lengkap dengan INFO YANG DITAMBAH
+    // KOD PIN 3D METAVERSE (Guna gambar meta.jpeg awak)
+    var markerIcon = L.icon({
+      iconUrl: 'meta.jpeg', 
+      iconSize: [35, 35], 
+      iconAnchor: [17, 35], 
+      popupAnchor: [0, -35] 
+    });
+
+    // MAKLUMAT SEJARAH PENUH (LENGKAP SEMUA 12 TEMPAT)
     var lokasiWarisan = [
       { 
         n: "1. Muzium Kota Kayang (Perlis)", 
@@ -151,15 +198,15 @@
         t: "1735", 
         c: [6.1206, 100.3664], 
         i: "Dibina oleh Sultan Muhammad Jiwa Zainal Adilin II. Bangunan ini amat bersejarah kerana ia pernah dimusnahkan oleh tentera Bugis (1770) dan tentera Siam (1821), namun dibina semula setiap kali. Ia mempunyai struktur bumbung yang disokong oleh puluhan tiang kayu keras yang diukir indah, menjadikannya pusat pertabalan Sultan Kedah dari abad ke-18 sehingga kini.", 
-        src: "Perbadanan Perpustakaan Awam Kedah / Pelancongan Negeri Kedah", 
+        src: "Perbadanan Perpustakaan Awam Kedah", 
         img: "kedah.png" 
       },
       { 
         n: "3. Leong San Tong Khoo Kongsi (Pulau Pinang)", 
         t: "1906", 
         c: [5.4141, 100.3375], 
-        i: "Rumah kongsi kaum Cina (Klan Khoo) yang paling megah di Asia Tenggara. Kompleks pertama yang dibina pada tahun 1894 terbakar sepenuhnya pada 1901—kononnya kerana reka bentuknya terlalu menyerupai Istana Maharaja China yang menimbulkan 'kemurkaan dewa'. Ia kemudian dibina semula dengan skala yang sedikit kecil namun masih mengekalkan ukiran batu, kayu, dan bumbung naga bergred tinggi yang diterbangkan khas dari China.", 
-        src: "Penang Heritage Trust (PHT) & Portal Rasmi Khoo Kongsi", 
+        i: "Rumah kongsi kaum Cina (Klan Khoo) yang paling megah di Asia Tenggara. Kompleks pertama yang dibina pada tahun 1894 terbakar sepenuhnya pada 1901—kononnya kerana reka bentuknya terlalu menyerupai Istana Maharaja China yang menimbulkan 'kemurkaan dewa'. Ia kemudian dibina semula dengan mengekalkan ukiran bumbung naga bergred tinggi yang diterbangkan khas dari China.", 
+        src: "Penang Heritage Trust (PHT)", 
         img: "penang.png" 
       },
       { 
@@ -175,7 +222,7 @@
         t: "1897", 
         c: [3.1486, 101.6945], 
         i: "Direka bentuk oleh A.C. Norman dengan konsep 'Moorish' dan 'Moghul' (Seni Bina Islam-India), menggabungkan batu-bata merah berselang-seli dengan lengkungan putih. Menara jamnya setinggi 41 meter sering digelar 'Big Ben Malaysia'. Bangunan ini menjadi saksi penurunan bendera Union Jack pada tengah malam 31 Ogos 1957.", 
-        src: "Jabatan Warisan Negara, Kementerian Pelancongan", 
+        src: "Jabatan Warisan Negara", 
         img: "KL.png" 
       },
       { 
@@ -183,7 +230,7 @@
         t: "1899", 
         c: [2.8596, 101.4428], 
         i: "Istana ini merupakan cetusan idea dan direka sendiri oleh Sultan Alaeddin Sulaiman Shah. Pembinaannya unik kerana ia menggabungkan elemen seni bina Islam-Moorish, kraf ukiran tukang Cina, dan kemasan jubin dari Eropah. Kayu utamanya menggunakan kayu Cengal berkualiti tinggi yang dihiasi dengan ukiran motif awan larat.", 
-        src: "Perbadanan Adat Melayu dan Warisan Negeri Selangor (PADAT)", 
+        src: "Perbadanan Adat Melayu dan Warisan Selangor (PADAT)", 
         img: "Selangor.png" 
       },
       { 
@@ -215,8 +262,8 @@
         t: "1906 (Zaman Kegemilangan)", 
         c: [3.9135, 103.0335], 
         i: "Dahulunya dikenali sebagai 'El Dorado Timur' kerana pekan ini sangat kaya. Ia merupakan lombong bijih timah bawah tanah yang paling dalam dan terbesar di dunia, dengan panjang terowong melebihi 322 kilometer! Bangunan muzium ini asalnya adalah kediaman rasmi dan pejabat Pengurus Besar Pahang Consolidated Company Limited (PCCL) dari British.", 
-        src: "Majlis Bandaraya Kuantan & Jabatan Muzium Malaysia", 
-        img: "pahang.png" 
+        src: "Jabatan Muzium Malaysia", 
+        img: "PAHANG.png" 
       },
       { 
         n: "11. Masjid Abidin (Terengganu)", 
@@ -224,7 +271,7 @@
         c: [5.3340, 103.1423], 
         i: "Lebih dikenali oleh penduduk tempatan sebagai 'Masjid Putih' kerana struktur klasiknya yang serba putih. Dibina oleh Sultan Zainal Abidin II, ia pada asalnya dibina daripada kayu sebelum digantikan dengan binaan batu bata. Masjid ini turut menempatkan Makam Diraja di mana beberapa orang Sultan Terengganu yang awal telah disemadikan.", 
         src: "Lembaga Muzium Negeri Terengganu", 
-        img: "TERENGGANU.png" 
+        img: "Terengganu.png" 
       },
       { 
         n: "12. Istana Jahar (Kelantan)", 
@@ -238,27 +285,29 @@
 
     var dialogText = document.getElementById("dialog-text");
     var npcAvatar = document.getElementById("npc-avatar");
-    var defaultImg = document.getElementById("default-avatar").src;
 
     lokasiWarisan.forEach(function(l) {
-      // Pin biru Leaflet yang standard dan asal
-      var marker = L.marker(l.c).addTo(map);
+      // Masukkan marker 3D meta.jpeg ke atas peta
+      var marker = L.marker(l.c, {icon: markerIcon}).addTo(map);
+      
       marker.on('click', function() {
-        
         var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
         
-        // Memaparkan info yang lebih panjang dan padat
+        // Paparan teks panjang
         dialogText.innerHTML = `
-          <strong>${l.n} (Tahun: ${l.t})</strong><br><br>
+          <strong>> LOKASI: ${l.n}</strong><br>
+          <strong>> TAHUN: ${l.t}</strong><br><br>
           ${l.i}
-          <span class="source-text"><strong>Sumber Rujukan Rasmi:</strong> ${l.src}</span>
-          <a href='${metaverseLink}' target='_blank' class='nes-btn is-success metaverse-btn'>LIHAT LOKASI DI GOOGLE MAPS</a>
+          <span class="source-text">Sumber Sistem: ${l.src}</span>
+          <br>
+          <a href='${metaverseLink}' target='_blank' class='metaverse-btn'>[ MASUK METAVERSE 360° ]</a>
         `;
         
+        // Tukar gambar tempat sekiranya ada
         if (l.img !== "") {
           npcAvatar.src = l.img;
         } else {
-          npcAvatar.src = defaultImg;
+          npcAvatar.src = "https://via.placeholder.com/120/000000/39ff14?text=TIADA+IMEJ";
         }
       });
     });
