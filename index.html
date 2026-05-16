@@ -155,7 +155,7 @@
     <div style="display: flex; align-items: flex-start; gap: 25px;">
       <img src="https://via.placeholder.com/120/000000/39ff14?text=STANDBY" id="npc-avatar" alt="Paparan Imej">
       <div id="dialog-text">
-        <p>Sistem sedia... Sila pilih pin lokasi 3D pada peta untuk mengakses arkib sejarah.</p>
+        <p>Sistem sedia... Sila pilih pin lokasi pada peta untuk mengakses arkib sejarah.</p>
       </div>
     </div>
   </section>
@@ -170,18 +170,10 @@
   <script>
     var map = L.map('map').setView([4.2105, 101.9758], 6);
     
-    // TEMA GELAP (DARK THEME MAP)
+    // TEMA GELAP (DARK THEME MAP KEKAL)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '© OpenStreetMap contributors & CartoDB'
     }).addTo(map);
-
-    // KOD PIN 3D METAVERSE (Guna gambar meta.jpeg awak)
-    var markerIcon = L.icon({
-      iconUrl: 'meta.jpeg', 
-      iconSize: [35, 35], 
-      iconAnchor: [17, 35], 
-      popupAnchor: [0, -35] 
-    });
 
     // MAKLUMAT SEJARAH PENUH (LENGKAP SEMUA 12 TEMPAT)
     var lokasiWarisan = [
@@ -287,8 +279,8 @@
     var npcAvatar = document.getElementById("npc-avatar");
 
     lokasiWarisan.forEach(function(l) {
-      // Masukkan marker 3D meta.jpeg ke atas peta
-      var marker = L.marker(l.c, {icon: markerIcon}).addTo(map);
+      // Masukkan marker biru biasa (default) ke atas peta
+      var marker = L.marker(l.c).addTo(map);
       
       marker.on('click', function() {
         var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
