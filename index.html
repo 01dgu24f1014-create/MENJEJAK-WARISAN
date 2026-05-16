@@ -85,17 +85,33 @@
       background-color: white;
       color: black;
       margin-top: 20px;
-      min-height: 150px;
+      min-height: 180px;
       position: relative;
       z-index: 10;
     }
     
     #npc-avatar {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       image-rendering: pixelated;
       border: 3px solid black;
       background: #eee;
+      flex-shrink: 0;
+    }
+
+    #dialog-text {
+      font-size: 11px; 
+      line-height: 1.6;
+    }
+
+    /* Gaya untuk Sumber Maklumat */
+    .source-text {
+      color: #209cee;
+      font-size: 9px;
+      display: block;
+      margin-top: 10px;
+      border-top: 1px dashed #ccc;
+      padding-top: 5px;
     }
 
     #timeline-container {
@@ -117,6 +133,7 @@
         margin-top: 15px;
         font-size: 10px !important;
         animation: blinker 1.5s linear infinite;
+        display: inline-block;
     }
     
     @keyframes blinker {
@@ -136,11 +153,11 @@
   </div>
 
   <section class="nes-container with-title dialog-box">
-    <p class="title">Maklumat Lokasi</p>
-    <div style="display: flex; align-items: center; gap: 20px;">
+    <p class="title">Maklumat Lokasi Sejarah</p>
+    <div style="display: flex; align-items: flex-start; gap: 20px;">
       <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar">
       <div id="dialog-text">
-        <p>Selamat datang! Sila rujuk Petunjuk dan klik pin berbentuk bangunan pada peta untuk melihat sejarah warisan kita.</p>
+        <p>Sistem Diaktifkan. Sila rujuk kotak 'PETUNJUK' dan klik pada pin bangunan di atas peta untuk memuat turun data rekod warisan berserta sumber rujukan.</p>
       </div>
     </div>
   </section>
@@ -156,75 +173,164 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([4.2105, 101.9758], 5); 
+    var map = L.map('map').setView([4.2105, 101.9758], 6); 
     
     // Peta Satelit Esri
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles © Esri'
     }).addTo(map);
 
-    // KOD BARU: Cipta Ikon Bangunan Tersuai (Custom Icon)
-    var buildingIcon = L.icon({
-      iconUrl: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png', // Ikon bangunan bersejarah percuma
-      iconSize: [35, 35],
-      iconAnchor: [17, 35],
-      popupAnchor: [0, -35]
+    // KOD BARU: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
+    var markerIcon = L.icon({
+      iconUrl: 'image_14.png', // URL fail imej penanda peta baharu anda di GitHub
+      iconSize: [30, 30], // Ubah saiz ikon mengikut keperluan
+      iconAnchor: [15, 30], // Titik sauh ikon (bahagian bawah tengah pin)
+      popupAnchor: [0, -30] // Titik sauh popup (bahagian atas pin)
     });
 
-    // KOD BARU: Tambah Kotak Petunjuk (Legend) ke dalam peta
+    // Kotak Petunjuk
     var legend = L.control({position: 'bottomleft'});
     legend.onAdd = function (map) {
       var div = L.DomUtil.create('div', 'legend-box nes-container is-rounded');
       div.innerHTML = `
-        <h4>PETUNJUK</h4>
+        <h4>PETUNJUK LOKASI</h4>
         <ol style="padding-left: 20px; margin: 0;">
-          <li>Muzium Kota Kayang</li>
-          <li>Balai Besar</li>
-          <li>Leong San Tong Khoo Kongsi</li>
-          <li>Menara Condong</li>
-          <li>Bangunan Sultan Abdul Samad</li>
-          <li>Istana Bandar Jugra</li>
-          <li>Muzium Diraja Istana Seri Menanti</li>
-          <li>Kota A Famosa</li>
-          <li>Istana Besar Johor</li>
-          <li>Muzium Sungai Lembing</li>
-          <li>Masjid Abidin</li>
-          <li>Istana Jahar</li>
+          <li>Muzium Kota Kayang (PLS)</li>
+          <li>Balai Besar (KDH)</li>
+          <li>Khoo Kongsi (PNG)</li>
+          <li>Menara Condong (PRK)</li>
+          <li>Bgn Sultan Abdul Samad (KUL)</li>
+          <li>Istana Bandar Jugra (SGR)</li>
+          <li>Istana Seri Menanti (NSN)</li>
+          <li>Kota A Famosa (MLK)</li>
+          <li>Istana Besar Johor (JHR)</li>
+          <li>Muzium Sg Lembing (PHG)</li>
+          <li>Masjid Abidin (TRG)</li>
+          <li>Istana Jahar (KTN)</li>
         </ol>
       `;
       return div;
     };
     legend.addTo(map);
 
-    // Data Lokasi Lengkap dengan Nama Fail Baru
+    // DATA LENGKAP BERSERTA SUMBER
     var lokasiWarisan = [
-      { n: "1. Muzium Kota Kayang (Perlis)", t: "1999", c: [6.4172, 100.1706], i: "Tapak kediaman keluarga bangsawan dan kerabat diraja.", img: "PERLIS.png" },
-      { n: "2. Balai Besar (Kedah)", t: "1735", c: [6.1206, 100.3664], i: "Dibina untuk majlis diraja seperti pertabalan sultan.", img: "kedah.png" },
-      { n: "3. Khoo Kongsi (Pulau Pinang)", t: "1906", c: [5.4141, 100.3375], i: "Rumah persatuan (clanhouse) untuk menyatukan ahli keluarga.", img: "penang.png" },
-      { n: "4. Menara Condong Teluk Intan (Perak)", t: "1885", c: [4.0253, 101.0195], i: "Asalnya tangki simpanan air untuk kegunaan harian dan kecemasan.", img: "PERAK.png" },
-      { n: "5. Bangunan Sultan Abdul Samad (KL)", t: "1897", c: [3.1486, 101.6945], i: "Menempatkan pejabat-pejabat urusan pentadbiran kolonial British.", img: "KL.png" },
-      { n: "6. Istana Bandar Jugra (Selangor)", t: "1899", c: [2.8596, 101.4428], i: "Pusat pentadbiran diraja Selangor cetusan idea Sultan Sir Alaeddin.", img: "Selangor.png" },
-      { n: "7. Istana Seri Menanti (N. Sembilan)", t: "1902", c: [2.6974, 102.1585], i: "Dibina untuk menggantikan istana lama yang terbakar.", img: "N. 9.png" },
-      { n: "8. Kota A Famosa (Melaka)", t: "1511", c: [2.1923, 102.2497], i: "Kubu Portugis. Stadthuys sebagai kediaman Gabenor Belanda.", img: "" },
-      { n: "9. Istana Besar Johor (Johor)", t: "1866", c: [1.4552, 103.7554], i: "Dibina oleh Sultan Abu Bakar sebagai kediaman rasmi.", img: "Johor.png" },
-      { n: "10. Muzium Sungai Lembing (Pahang)", t: "1906", c: [3.9135, 103.0335], i: "Pusat perlombongan bijih timah bawah tanah terdalam.", img: "" },
-      { n: "11. Masjid Abidin (Terengganu)", t: "1793", c: [5.3340, 103.1423], i: "Masjid diraja utama Terengganu yang dikenali sebagai Masjid Putih.", img: "TERENGGANU.png" },
-      { n: "12. Istana Jahar (Kelantan)", t: "1887", c: [6.1322, 102.2374], i: "Anugerah Sultan Muhamad II kepada cucunda baginda.", img: "Kelantan.png" }
+      { 
+        n: "1. Muzium Kota Kayang (Perlis)", 
+        t: "1999", 
+        c: [6.4172, 100.1706], 
+        i: "Muzium ini terletak di atas tapak bersejarah seluas 4.84 hektar. Bangunan asalnya adalah replika kediaman rasmi Syed Alwi (Raja Perlis) sebelum ia diambil alih dan dijadikan kediaman rasmi Penasihat British pertama di Perlis, Mr. Meadowe Frost. Ia kini menempatkan pelbagai artifak termasuk Galeri Senjata dan Galeri Diraja Perlis.", 
+        src: "Jabatan Muzium Malaysia (JMM)",
+        img: "PERLIS.png" // Sila pastikan fail PERLIS.png dimuat naik ke GitHub
+      },
+      { 
+        n: "2. Balai Besar (Kedah)", 
+        t: "1735", 
+        c: [6.1206, 100.3664], 
+        i: "Balai Besar dibina oleh Sultan Muhammad Jiwa Zainal Adilin Muazzam Shah II. Walaupun pernah musnah akibat serangan armada Bugis (1770) dan tentera Siam (1821), ia telah dibina semula. Fungsinya kekal sebagai pusat acara rasmi diraja termasuk majlis pertabalan Sultan Kedah dari abad ke-18 hingga kini.", 
+        src: "Perbadanan Perpustakaan Awam Kedah / Pelancongan Negeri Kedah",
+        img: "kedah.png" // Sila pastikan fail kedah.png dimuat naik ke GitHub
+      },
+      { 
+        n: "3. Leong San Tong Khoo Kongsi (Pulau Pinang)", 
+        t: "1906", 
+        c: [5.4141, 100.3375], 
+        i: "Dikenali sebagai salah satu rumah kongsi keturunan Cina (clanhouse) yang paling megah dan berhias indah di Asia Tenggara. Siap dibina sepenuhnya pada tahun 1906, ia berfungsi sebagai pusat perpaduan keluarga Khoo dari wilayah Hokkien, China. Seni binanya mempamerkan ukiran naga, bumbung berlapis, dan seramik hiasan gred tinggi.", 
+        src: "Penang Heritage Trust (PHT) & Portal Rasmi Khoo Kongsi",
+        img: "penang.png" // Sila pastikan fail penang.png dimuat naik ke GitHub
+      },
+      { 
+        n: "4. Menara Condong Teluk Intan (Perak)", 
+        t: "1885", 
+        c: [4.0253, 101.0195], 
+        i: "Dibina oleh arkitek Cina bernama Leong Choon Chong pada asalnya sebagai sebuah tangki simpanan air untuk membekalkan air kepada penduduk tempatan, terutamanya jika berlaku kemarau atau kebakaran. Struktur pagoda 8 tingkat ini mulai condong akibat beban air dan struktur tanah di kawasan tersebut yang lembut dan berpaya.", 
+        src: "Majlis Perbandaran Teluk Intan (MPTI)",
+        img: "PERAK.png" // Sila pastikan fail PERAK.png dimuat naik ke GitHub
+      },
+      { 
+        n: "5. Bangunan Sultan Abdul Samad (Kuala Lumpur)", 
+        t: "1897", 
+        c: [3.1486, 101.6945], 
+        i: "Merupakan ikonik mercu tanda Kuala Lumpur, direka oleh arkitek A.C. Norman dan R.A.J. Bidwell. Seni bina berkonsepkan Moorish dan Moghul ini dibina menggunakan lebih 4 juta batu bata. Ia mula digunakan sebagai Pusat Pentadbiran Kerajaan Kolonial British (Sekretariat) sebelum dijadikan Mahkamah Persekutuan Malaysia.", 
+        src: "Jabatan Warisan Negara, Kementerian Pelancongan",
+        img: "KL.png" // Sila pastikan fail KL.png dimuat naik ke GitHub
+      },
+      { 
+        n: "6. Istana Bandar Jugra (Selangor)", 
+        t: "1899", 
+        c: [2.8596, 101.4428], 
+        i: "Istana dua tingkat ini dibina atas cetusan idea Sultan Alaeddin Sulaiman Shah, Sultan Selangor ke-5. Reka bentuknya sangat unik, menggabungkan seni bina tempatan dengan sentuhan Islam-Moorish. Ia mempunyai 40 buah bilik dan menjadi tempat kelahiran Almarhum Sultan Salahuddin Abdul Aziz Shah.", 
+        src: "Perbadanan Adat Melayu dan Warisan Negeri Selangor (PADAT)",
+        img: "Selangor.png" // Sila pastikan fail Selangor.png dimuat naik ke GitHub
+      },
+      { 
+        n: "7. Muzium Diraja Istana Seri Menanti (N. Sembilan)", 
+        t: "1902", 
+        c: [2.6974, 102.1585], 
+        i: "Dibina bermula tahun 1902 dan siap pada tahun 1908 oleh dua pakar pertukangan tempatan iaitu Tukang Kahar dan Tukang Taib. Keunikan utama istana kayu ini adalah pembinaannya yang tidak menggunakan sebatang paku besi pun (hanya menggunakan pasak kayu) dan disokong oleh 99 batang tiang kayu cengal tebuk.", 
+        src: "Lembaga Muzium Negeri Sembilan (LMNS)",
+        img: "N. 9.png" // Sila pastikan fail N. 9.png dimuat naik ke GitHub
+      },
+      { 
+        n: "8. Kota A Famosa & Stadthuys (Melaka)", 
+        t: "1511", 
+        c: [2.1923, 102.2497], 
+        i: "A Famosa dibina oleh tentera Portugis pimpinan Alfonso de Albuquerque (1511) sebagai kubu pertahanan. Berhampirannya terletaknya Stadthuys (1650), bangunan berwarna merah yang dibina oleh Syarikat Hindia Timur Belanda (VOC). Stadthuys direkodkan sebagai bangunan kolonial Belanda tertua yang masih wujud di Asia Tenggara.", 
+        src: "Perbadanan Muzium Melaka (PERZIM)",
+        img: "" // Tiada imej khusus disediakan
+      },
+      { 
+        n: "9. Istana Besar Johor (Johor)", 
+        t: "1866", 
+        c: [1.4552, 103.7554], 
+        i: "Sebuah istana megah berkonsepkan seni bina Anglo-Melayu yang dibina oleh Bapa Pemodenan Johor, Sultan Abu Bakar. Ia menghadap Selat Tebrau dan pernah menjadi kediaman rasmi Sultan Johor. Kini, ia menempatkan Muzium Diraja Abu Bakar yang menyimpan perhiasan kebesaran darjat diraja Johor.", 
+        src: "Yayasan Warisan Johor (YWJ)",
+        img: "Johor.png" // Sila pastikan fail Johor.png dimuat naik ke GitHub
+      },
+      { 
+        n: "10. Muzium Sungai Lembing (Pahang)", 
+        t: "1906", 
+        c: [3.9135, 103.0335], 
+        i: "Bangunan kolonial ini pada asalnya dibina sebagai kediaman rasmi pengurus besar syarikat perlombongan British, Pahang Consolidated Company Limited (PCCL). Sungai Lembing pernah memegang gelaran lombong bijih timah bawah tanah yang terbesar dan terdalam di dunia (digelar El-Dorado Timur).", 
+        src: "Majlis Bandaraya Kuantan & Jabatan Muzium Malaysia",
+        img: "" // Tiada imej khusus disediakan
+      },
+      { 
+        n: "11. Masjid Abidin / Masjid Putih (Terengganu)", 
+        t: "1793", 
+        c: [5.3340, 103.1423], 
+        i: "Masjid diraja ini dibina oleh Sultan Zainal Abidin II (Marhum Masjid) dan diiktiraf sebagai masjid tertua di Terengganu. Pembinaan awalnya diperbuat daripada kayu sebelum ditukar kepada konkrit. Senibinanya sangat klasik kerana ia tidak mempunyai kubah seperti masjid moden, sebaliknya menggunakan bumbung limas tempatan.", 
+        src: "Lembaga Muzium Negeri Terengganu",
+        img: "TERENGGANU.png" // Sila pastikan fail TERENGGANU.png dimuat naik ke GitHub
+      },
+      { 
+        n: "12. Istana Jahar (Kelantan)", 
+        t: "1887", 
+        c: [6.1322, 102.2374], 
+        i: "Dibina oleh Sultan Muhamad II sebagai anugerah untuk cucunda baginda (Long Kundur). Istana kayu ini dinamakan bersempena nama sejenis pokok, iaitu Pokok Jahar. Reka bentuknya membuktikan kehalusan seni ukir tukang kayu Kelantan. Ia kini diwartakan sebagai Muzium Adat Istiadat Diraja Kelantan.", 
+        src: "Perbadanan Muzium Negeri Kelantan",
+        img: "Kelantan.png" // Sila pastikan fail Kelantan.png dimuat naik ke GitHub
+      }
     ];
 
     var dialogText = document.getElementById("dialog-text");
     var npcAvatar = document.getElementById("npc-avatar");
     var defaultImg = document.getElementById("default-avatar").src;
 
+    // 4. KOD DIKEMAS KINI: Gunakan penanda peta baharu 'markerIcon' dalam gelung 'forEach'
     lokasiWarisan.forEach(function(l) {
-      // Gunakan buildingIcon menggantikan pin biru biasa
-      var marker = L.marker(l.c, {icon: buildingIcon}).addTo(map);
+      // Tambahkan ikon tersuai di sini
+      var marker = L.marker(l.c, {icon: markerIcon}).addTo(map);
       marker.on('click', function() {
         
         var metaverseLink = "https://www.google.com/maps?layer=c&cbll=" + l.c[0] + "," + l.c[1];
         
-        dialogText.innerHTML = "<strong>" + l.n + " (TAHUN " + l.t + ")</strong><br><br>" + l.i + 
-        "<br><a href='" + metaverseLink + "' target='_blank' class='nes-btn is-success metaverse-btn'>MASUK METAVERSE 360°</a>";
+        dialogText.innerHTML = `
+          <strong>${l.n} (Tahun: ${l.t})</strong><br><br>
+          ${l.i}
+          <span class="source-text"><strong>Sumber Rujukan Rasmi:</strong> ${l.src}</span>
+          <a href='${metaverseLink}' target='_blank' class='nes-btn is-success metaverse-btn'>MASUK METAVERSE 360°</a>
+        `;
         
         if (l.img !== "") {
           npcAvatar.src = l.img;
