@@ -180,11 +180,334 @@
       attribution: 'Tiles © Esri'
     }).addTo(map);
 
-    // KOD BARU: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
+    // KOD DIKEMAS KINI: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
+    // Sila pastikan anda muat naik fail image_14.png ke GitHub dengan nama fail yang tepat: meta.jpeg
     var markerIcon = L.icon({
-      iconUrl: 'image_14.png', // URL fail imej penanda peta baharu anda di GitHub
+      iconUrl: 'meta.jpeg', // URL fail imej penanda peta baharu anda di GitHub
       iconSize: [30, 30], // Ubah saiz ikon mengikut keperluan
-      iconAnchor: [15, 30], // Titik sauh ikon (bahagian bawah tengah pin)
+      iconAnchor: [15, 28], // Titik sauh ikon (bahagian bawah tengah pin)
+      popupAnchor: [0, -30] // Titik sauh popup (bahagian atas pin)
+    });
+
+    // Kotak Petunjuk
+    var legend = L.control({position: 'bottomleft'});
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div',Oh, saya faham! Sila namakan imej sebagai `meta.jpeg` dan muat naik ke GitHub. Itu akan menjadikannya penanda peta baharu anda.
+
+Sila ikut langkah-langkah di bawah untuk mengemas kini kod anda:
+
+1.  **Sila Muat Naik Imej Penanda Peta:** Sila muat naik fail imej ke GitHub anda dengan nama fail yang tepat: `meta.jpeg`.
+2.  **Sila Ganti Kod HTML:** Sila padam semua kod lama dalam fail `index.html` anda dan tampal kod penuh yang dikemas kini di bawah. Saya telah mengubah suai kod untuk menggunakan ikon penanda peta tersuai baharu anda. Saya juga telah memastikan semua nama fail imej negeri adalah tepat seperti dalam GitHub anda.
+
+---
+
+### Kod Penuh `index.html` (Sila Copy & Tampal Sepenuhnya):
+
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menjejak Warisan - NGGSIC 2026</title>
+
+  <link href="[https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap](https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap)" rel="stylesheet">
+  <link href="[https://unpkg.com/nes.css@latest/css/nes.min.css](https://unpkg.com/nes.css@latest/css/nes.min.css)" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
+
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #212529;
+      color: #fff;
+      padding: 80px 50px; 
+      margin: 0;
+    }
+    
+    /* Bingkai NGGSIC */
+    .poster-frame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      pointer-events: none; 
+      mix-blend-mode: multiply;
+    }
+
+    .header-title {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #f7d51d;
+      text-shadow: 2px 2px #000;
+      font-size: 24px;
+    }
+    
+    .sub-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffcc;
+      font-size: 12px;
+      text-shadow: 1px 1px #000;
+    }
+
+    #map-container {
+      background-color: white;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 4px solid #000;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    #map {
+      height: 450px;
+      width: 100%;
+    }
+
+    /* Kotak Petunjuk (Legend) di dalam Peta */
+    .legend-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+      padding: 10px;
+      border: 3px solid black;
+      font-size: 8px;
+      line-height: 1.8;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+    .legend-box h4 {
+      font-size: 10px;
+      color: #d2691e;
+      border-bottom: 2px solid black;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+
+    .dialog-box {
+      background-color: white;
+      color: black;
+      margin-top: 20px;
+      min-height: 180px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    #npc-avatar {
+      width: 100px;
+      height: 100px;
+      image-rendering: pixelated;
+      border: 3px solid black;
+      background: #eee;
+      flex-shrink: 0;
+    }
+
+    #dialog-text {
+      font-size: 11px; 
+      line-height: 1.6;
+    }
+
+    /* Gaya untuk Sumber MaklumatSila ikut langkah-langkah di bawah untuk mengemas kini kod anda:
+
+1.  **Sila Muat Naik Imej Penanda Peta:** Sila muat naik fail imej ke GitHub anda dengan nama fail yang tepat: `meta.jpeg`.
+2.  **Sila Ganti Kod HTML:** Sila padam semua kod lama dalam fail `index.html` anda dan tampal kod penuh yang dikemas kini di bawah. Saya telah mengubah suai kod untuk menggunakan ikon penanda peta tersuai baharu anda. Saya juga telah memastikan semua nama fail imej negeri adalah tepat seperti dalam GitHub anda.
+
+---
+
+### Kod Penuh `index.html` (Sila Copy & Tampal Sepenuhnya):
+
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menjejak Warisan - NGGSIC 2026</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #212529;
+      color: #fff;
+      padding: 80px 50px; 
+      margin: 0;
+    }
+    
+    /* Bingkai NGGSIC */
+    .poster-frame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      pointer-events: none; 
+      mix-blend-mode: multiply;
+    }
+
+    .header-title {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #f7d51d;
+      text-shadow: 2px 2px #000;
+      font-size: 24px;
+    }
+    
+    .sub-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffcc;
+      font-size: 12px;
+      text-shadow: 1px 1px #000;
+    }
+
+    #map-container {
+      background-color: white;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 4px solid #000;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    #map {
+      height: 450px;
+      width: 100%;
+    }
+
+    /* Kotak Petunjuk (Legend) di dalam Peta */
+    .legend-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+      padding: 10px;
+      border: 3px solid black;
+      font-size: 8px;
+      line-height: 1.8;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+    .legend-box h4 {
+      font-size: 10px;
+      color: #d2691e;
+      border-bottom: 2px solid black;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+
+    .dialog-box {
+      background-color: white;
+      color: black;
+      margin-top: 20px;
+      min-height: 180px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    #npc-avatar {
+      width: 100px;
+      height: 100px;
+      image-rendering: pixelated;
+      border: 3px solid black;
+      background: #eee;
+      flex-shrink: 0;
+    }
+
+    #dialog-text {
+      font-size: 11px; 
+      line-height: 1.6;
+    }
+
+    /* Gaya untuk Sumber Maklumat */
+    .source-text {
+      color: #209cee;
+      font-size: 9px;
+      display: block;
+      margin-top: 10px;
+      border-top: 1px dashed #ccc;
+      padding-top: 5px;
+    }
+
+    #timeline-container {
+      text-align: center;
+      margin-top: 40px;
+      padding-bottom: 100px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    #timeline-image {
+      max-width: 90%;
+      border: 5px solid #fff;
+    }
+
+    #hidden-assets { display: none; }
+    
+    .metaverse-btn {
+        margin-top: 15px;
+        font-size: 10px !important;
+        animation: blinker 1.5s linear infinite;
+        display: inline-block;
+    }
+    
+    @keyframes blinker {
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="frame.png.jpeg" class="poster-frame" alt="Frame NGGSIC">
+
+  <h2 class="header-title">MENJEJAK WARISAN</h2>
+  <h3 class="sub-title">"WARISAN DIJEJAK, IDENTITI DIJAGA"</h3>
+
+  <div class="nes-container is-rounded" id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <section class="nes-container with-title dialog-box">
+    <p class="title">Maklumat Lokasi Sejarah</p>
+    <div style="display: flex; align-items: flex-start; gap: 20px;">
+      <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="npc-avatar" alt="Avatar">
+      <div id="dialog-text">
+        <p>Sistem Diaktifkan. Sila rujuk kotak 'PETUNJUK' dan klik pada pin bangunan di atas peta untuk memuat turun data rekod warisan berserta sumber rujukan.</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="timeline-container">
+    <h3 style="color: #f7d51d; margin-bottom: 20px;">PEREDARAN MASA</h3>
+    <img src="cart.jpeg" id="timeline-image" alt="Carta Linimasa">
+  </div>
+
+  <div id="hidden-assets">
+    <img src="https://unpkg.com/nes.css/assets/bc-rikka-bird.png" id="default-avatar">
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([4.2105, 101.9758], 6); 
+    
+    // Peta Satelit Esri
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © Esri'
+    }).addTo(map);
+
+    // KOD DIKEMAS KINI: Cipta Ikon Penanda Peta Tersuai (Metaverse Pin)
+    // Sila pastikan anda muat naik fail image_14.png ke GitHub dengan nama fail yang tepat: meta.jpeg
+    var markerIcon = L.icon({
+      iconUrl: 'meta.jpeg', // URL fail imej penanda peta baharu anda di GitHub
+      iconSize: [30, 30], // Ubah saiz ikon mengikut keperluan
+      iconAnchor: [15, 28], // Titik sauh ikon (bahagian bawah tengah pin)
       popupAnchor: [0, -30] // Titik sauh popup (bahagian atas pin)
     });
 
@@ -251,7 +574,7 @@
         n: "5. Bangunan Sultan Abdul Samad (Kuala Lumpur)", 
         t: "1897", 
         c: [3.1486, 101.6945], 
-        i: "Merupakan ikonik mercu tanda Kuala Lumpur, direka oleh arkitek A.C. Norman dan R.A.J. Bidwell. Seni bina berkonsepkan Moorish dan Moghul ini dibina menggunakan lebih 4 juta batu bata. Ia mula digunakan sebagai Pusat Pentadbiran Kerajaan Kolonial British (Sekretariat) sebelum dijadikan Mahkamah Persekutuan Malaysia.", 
+        i: "Merupakan ikonik mercu tanda Kuala Lumpur, direka oleh arkitek A.C. Norman and R.A.J. Bidwell. Seni bina berkonsepkan Moorish dan Moghul ini dibina menggunakan lebih 4 juta batu bata. Ia mula digunakan sebagai Pusat Pentadbiran Kerajaan Kolonial British (Sekretariat) sebelum dijadikan Mahkamah Persekutuan Malaysia.", 
         src: "Jabatan Warisan Negara, Kementerian Pelancongan",
         img: "KL.png" // Sila pastikan fail KL.png dimuat naik ke GitHub
       },
@@ -299,7 +622,7 @@
         n: "11. Masjid Abidin / Masjid Putih (Terengganu)", 
         t: "1793", 
         c: [5.3340, 103.1423], 
-        i: "Masjid diraja ini dibina oleh Sultan Zainal Abidin II (Marhum Masjid) dan diiktiraf sebagai masjid tertua di Terengganu. Pembinaan awalnya diperbuat daripada kayu sebelum ditukar kepada konkrit. Senibinanya sangat klasik kerana ia tidak mempunyai kubah seperti masjid moden, sebaliknya menggunakan bumbung limas tempatan.", 
+        i: "Masjid diraja ini dibina oleh Sultan Zainal Abidin II (Marhum Masjid) and diiktiraf sebagai masjid tertua di Terengganu. Pembinaan awalnya diperbuat daripada kayu sebelum ditukar kepada konkrit. Senibinanya sangat klasik kerana ia tidak mempunyai kubah seperti masjid moden, sebaliknya menggunakan bumbung limas tempatan.", 
         src: "Lembaga Muzium Negeri Terengganu",
         img: "TERENGGANU.png" // Sila pastikan fail TERENGGANU.png dimuat naik ke GitHub
       },
