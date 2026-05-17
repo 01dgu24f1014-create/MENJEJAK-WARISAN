@@ -1,139 +1,204 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menjejak Warisan - Metaverse Edition</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title>MENJEJAK WARISAN - METAVERSE HUB</title>
 
-  <style>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+    margin:0;
+    padding:30px;
+    background:#050505;
+    background-image:
+    radial-gradient(circle,#1a1a2e 0%,#050505 80%);
+    font-family:'Press Start 2P', cursive;
+    color:white;
+}
+
+/* TAJUK */
+
+.header-title{
+    text-align:center;
+    font-size:28px;
+    margin-bottom:10px;
+
+    text-shadow:
+    0 0 5px #fff,
+    0 0 10px #ff00de,
+    0 0 20px #ff00de,
+    0 0 40px #ff00de;
+}
+
+.sub-title{
+    text-align:center;
+    font-size:10px;
+    margin-bottom:40px;
+    color:#e0ffff;
+
+    text-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff;
+}
+
+/* MAP */
+
+.map-container{
+    padding:5px;
+    border:3px solid #00ffff;
+    border-radius:10px;
+
+    box-shadow:
+    0 0 15px #00ffff,
+    inset 0 0 15px #00ffff;
+
+    background:black;
+    margin-bottom:30px;
+}
+
+#map{
+    width:100%;
+    height:600px;
+    border-radius:5px;
+}
+
+/* DIALOG BOX */
+
+.dialog-box{
+    background:rgba(0,0,0,0.85);
+
+    border:3px solid #39ff14;
+    border-radius:10px;
+
+    padding:25px;
+
+    box-shadow:
+    0 0 15px #39ff14,
+    inset 0 0 10px #39ff14;
+}
+
+.dialog-title{
+    color:#39ff14;
+    font-size:14px;
+
+    margin-top:0;
+    margin-bottom:20px;
+
+    border-bottom:1px dashed #39ff14;
+    padding-bottom:10px;
+
+    text-shadow:
+    0 0 5px #39ff14;
+}
+
+#dialog-text{
+    font-size:11px;
+    line-height:1.9;
+    color:#e0ffff;
+}
+
+.source-text{
+    display:block;
+
+    margin-top:15px;
+    padding-top:10px;
+
+    border-top:1px dashed #666;
+
+    color:#ffaa00;
+    font-size:9px;
+}
+
+/* BUTTON */
+
+.metaverse-btn{
+    display:inline-block;
+
+    margin-top:20px;
+    padding:12px 18px;
+
+    text-decoration:none;
+    color:#ff00de;
+
+    border:2px solid #ff00de;
+
+    box-shadow:
+    0 0 10px #ff00de,
+    inset 0 0 5px #ff00de;
+
+    transition:0.3s;
+
+    font-size:10px;
+}
+
+.metaverse-btn:hover{
+    background:#ff00de;
+    color:white;
+
+    box-shadow:
+    0 0 20px #ff00de;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
 
     body{
-      font-family:'Press Start 2P', cursive;
-      background:#050505;
-      background-image: radial-gradient(circle,#1a1a2e 0%, #050505 80%);
-      color:white;
-      margin:0;
-      padding:30px;
+        padding:15px;
     }
 
     .header-title{
-      text-align:center;
-      font-size:26px;
-      color:white;
-      margin-bottom:10px;
-      text-shadow:
-      0 0 5px #fff,
-      0 0 10px #ff00de,
-      0 0 20px #ff00de,
-      0 0 40px #ff00de;
+        font-size:18px;
     }
 
     .sub-title{
-      text-align:center;
-      color:#e0ffff;
-      font-size:10px;
-      margin-bottom:40px;
-      text-shadow:0 0 5px #00ffff;
-    }
-
-    .map-container{
-      padding:5px;
-      border:3px solid #00ffff;
-      border-radius:8px;
-      box-shadow:
-      0 0 15px #00ffff,
-      inset 0 0 15px #00ffff;
-      background:black;
-      margin-bottom:30px;
-    }
-
-    #map{
-      width:100%;
-      height:550px;
-      border-radius:5px;
-    }
-
-    .dialog-box{
-      background:rgba(0,0,0,0.85);
-      border:3px solid #39ff14;
-      border-radius:10px;
-      padding:25px;
-      min-height:220px;
-      box-shadow:
-      0 0 15px #39ff14,
-      inset 0 0 10px #39ff14;
-    }
-
-    .dialog-title{
-      color:#39ff14;
-      font-size:14px;
-      margin-top:0;
-      margin-bottom:20px;
-      padding-bottom:10px;
-      border-bottom:1px dashed #39ff14;
-      text-shadow:0 0 5px #39ff14;
+        font-size:8px;
     }
 
     #dialog-text{
-      font-size:11px;
-      line-height:1.9;
-      color:#e0ffff;
+        font-size:9px;
     }
 
-    .source-text{
-      display:block;
-      margin-top:15px;
-      padding-top:10px;
-      border-top:1px dashed #555;
-      color:#ffaa00;
-      font-size:9px;
-    }
+}
 
-    .metaverse-btn{
-      display:inline-block;
-      margin-top:15px;
-      padding:10px 15px;
-      border:2px solid #ff00de;
-      color:#ff00de;
-      text-decoration:none;
-      font-size:10px;
-      box-shadow:
-      0 0 10px #ff00de,
-      inset 0 0 5px #ff00de;
-      transition:0.3s;
-    }
-
-    .metaverse-btn:hover{
-      background:#ff00de;
-      color:white;
-      box-shadow:0 0 20px #ff00de;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-<h2 class="header-title">MENJEJAK WARISAN</h2>
+<h1 class="header-title">
+MENJEJAK WARISAN
+</h1>
+
 <h3 class="sub-title">
-  "WARISAN DIJEJAK, IDENTITI DIJAGA" // METAVERSE HUB
+" WARISAN DIJEJAK, IDENTITI DIJAGA " // METAVERSE HUB
 </h3>
 
 <div class="map-container">
-  <div id="map"></div>
+    <div id="map"></div>
 </div>
 
 <section class="dialog-box">
 
-  <h3 class="dialog-title">TERMINAL DATA SEJARAH</h3>
+    <h3 class="dialog-title">
+    TERMINAL DATA SEJARAH
+    </h3>
 
-  <div id="dialog-text">
-    Sistem sedia...<br><br>
-    Klik pin lokasi pada peta untuk mengakses maklumat sejarah lengkap.
-  </div>
+    <div id="dialog-text">
+
+        Sistem sedia...<br><br>
+
+        Klik mana-mana pin lokasi pada peta untuk
+        mengakses arkib sejarah digital.
+
+    </div>
 
 </section>
 
@@ -141,377 +206,379 @@
 
 <script>
 
-  var map = L.map('map').setView([4.2105, 101.9758], 6);
+/* PAPARAN PETA */
 
-  L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    {
-      attribution:'© OpenStreetMap & CartoDB'
-    }
-  ).addTo(map);
+var map = L.map('map').setView([4.2105,101.9758],6);
 
-  // DATA TEMPAT BERSEJARAH
-  var lokasiWarisan = [
+/* DARK MODE MAP */
 
-    {
-      n:"Muzium Kota Kayang (Perlis)",
-      t:"1999",
-      c:[6.4172,100.1706],
-      i:"Muzium ini dibina di atas kawasan bekas istana Raja Perlis. Kawasan ini juga mempunyai penemuan arkeologi penting termasuk artifak Neolitik dan batu nisan purba yang membuktikan kewujudan penempatan awal di Perlis.",
-      src:"Jabatan Muzium Malaysia"
-    },
+L.tileLayer(
+'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+{
+    attribution:'© OpenStreetMap & CartoDB'
+}
+).addTo(map);
 
-    {
-      n:"Balai Besar (Kedah)",
-      t:"1735",
-      c:[6.1206,100.3664],
-      i:"Balai Besar merupakan tempat rasmi adat istiadat Kesultanan Kedah termasuk pertabalan Sultan. Bangunan ini pernah dimusnahkan oleh tentera Bugis dan Siam sebelum dibina semula.",
-      src:"Perbadanan Perpustakaan Awam Kedah"
-    },
+/* DATA TEMPAT BERSEJARAH */
 
-    {
-      n:"Khoo Kongsi (Pulau Pinang)",
-      t:"1906",
-      c:[5.4141,100.3375],
-      i:"Kompleks rumah kongsi masyarakat Cina yang terkenal dengan seni ukiran halus, patung naga, dan struktur tradisional dari China Selatan.",
-      src:"Penang Heritage Trust"
-    },
-
-    {
-      n:"Menara Condong Teluk Intan (Perak)",
-      t:"1885",
-      c:[4.0253,101.0195],
-      i:"Menara ini asalnya dibina sebagai tangki simpanan air. Struktur tanah lembut menyebabkan bangunan ini condong dan menjadi ikon terkenal negeri Perak.",
-      src:"Majlis Perbandaran Teluk Intan"
-    },
-
-    {
-      n:"Bangunan Sultan Abdul Samad (Kuala Lumpur)",
-      t:"1897",
-      c:[3.1486,101.6945],
-      i:"Bangunan ikonik ini menjadi simbol sejarah kemerdekaan Malaysia. Seni binanya menggabungkan gaya Moorish, Islam dan kolonial British.",
-      src:"Jabatan Warisan Negara"
-    },
-
-    {
-      n:"Istana Bandar Jugra (Selangor)",
-      t:"1899",
-      c:[2.8596,101.4428],
-      i:"Istana ini direka sendiri oleh Sultan Alaeddin Sulaiman Shah dengan gabungan seni bina Moorish dan Melayu tradisional.",
-      src:"PADAT Selangor"
-    },
-
-    {
-      n:"Istana Seri Menanti (Negeri Sembilan)",
-      t:"1902",
-      c:[2.6974,102.1585],
-      i:"Istana kayu tradisional Minangkabau ini dibina tanpa menggunakan sebatang paku besi dan menjadi lambang kehebatan pertukangan Melayu.",
-      src:"Lembaga Muzium Negeri Sembilan"
-    },
-
-    {
-      n:"Kota A Famosa (Melaka)",
-      t:"1511",
-      c:[2.1923,102.2497],
-      i:"Kubu Portugis terkenal yang dibina selepas penaklukan Melaka. Porta de Santiago ialah satu-satunya bahagian yang masih kekal sehingga hari ini.",
-      src:"PERZIM"
-    },
-
-    {
-      n:"Istana Besar Johor",
-      t:"1866",
-      c:[1.4552,103.7554],
-      i:"Istana ini dibina oleh Sultan Abu Bakar dan kini menjadi Muzium Diraja Johor yang menyimpan pelbagai khazanah diraja.",
-      src:"Yayasan Warisan Johor"
-    },
-
-    {
-      n:"Muzium Sungai Lembing (Pahang)",
-      t:"1906",
-      c:[3.9135,103.0335],
-      i:"Kawasan perlombongan bawah tanah terbesar dunia suatu ketika dahulu dan dikenali sebagai El Dorado Timur.",
-      src:"Jabatan Muzium Malaysia"
-    },
-
-    {
-      n:"Masjid Abidin (Terengganu)",
-      t:"1793",
-      c:[5.3340,103.1423],
-      i:"Masjid Putih ini merupakan antara masjid tertua di Terengganu dan mempunyai sejarah rapat dengan Kesultanan Terengganu.",
-      src:"Lembaga Muzium Negeri Terengganu"
-    },
-
-    {
-      n:"Istana Jahar (Kelantan)",
-      t:"1887",
-      c:[6.1322,102.2374],
-      i:"Istana kayu tradisional ini kini dijadikan Muzium Adat Istiadat Diraja Kelantan.",
-      src:"Perbadanan Muzium Negeri Kelantan"
-    },
-
-    // TEMPAT TAMBAHAN
-
-    {
-      n:"Fort Cornwallis (Pulau Pinang)",
-      t:"1786",
-      c:[5.4233,100.3390],
-      i:"Kubu pertahanan terbesar yang dibina British di Malaysia. Dibina oleh Kapten Francis Light untuk melindungi Pulau Pinang daripada ancaman luar.",
-      src:"Jabatan Warisan Negara"
-    },
-
-    {
-      n:"Kellie's Castle (Perak)",
-      t:"1915",
-      c:[4.5740,101.0928],
-      i:"Istana separuh siap milik William Kellie Smith yang terkenal dengan kisah misteri serta seni bina gabungan Scotland dan India.",
-      src:"Tourism Perak"
-    },
-
-    {
-      n:"Stadthuys (Melaka)",
-      t:"1650",
-      c:[2.1940,102.2495],
-      i:"Bangunan merah peninggalan Belanda yang pernah menjadi pusat pentadbiran kolonial Belanda di Melaka.",
-      src:"PERZIM"
-    },
-
-    {
-      n:"Masjid Kampung Laut (Kelantan)",
-      t:"1700-an",
-      c:[6.1456,102.2330],
-      i:"Antara masjid tertua di Malaysia dengan seni bina tradisional Melayu Nusantara tanpa penggunaan paku.",
-      src:"Jabatan Warisan Negara"
-    },
-
-    {
-      n:"Carcosa Seri Negara (Kuala Lumpur)",
-      t:"1898",
-      c:[3.1417,101.6892],
-      i:"Kediaman rasmi Pesuruhjaya Tinggi British suatu ketika dahulu dan menjadi lokasi penting sejarah penjajahan British.",
-      src:"Arkib Negara Malaysia"
-    },
-
-    {
-      n:"Muzium Taiping (Perak)",
-      t:"1883",
-      c:[4.8519,100.7418],
-      i:"Muzium pertama di Malaysia yang menyimpan koleksi sejarah, etnologi dan zoologi negara.",
-      src:"Jabatan Muzium Malaysia"
-    },
-
-    {
-      n:"Rumah Penghulu Abu Seman (Kuala Lumpur)",
-      t:"1910",
-      c:[3.1507,101.7067],
-      i:"Rumah tradisional Melayu yang dipindahkan dari Kedah ke Kuala Lumpur untuk tujuan pemuliharaan warisan.",
-      src:"Badan Warisan Malaysia"
-    },
-
-    {
-      n:"Gereja Christ Church (Melaka)",
-      t:"1753",
-      c:[2.1942,102.2496],
-      i:"Gereja Protestan tertua di Malaysia yang dibina semasa pemerintahan Belanda di Melaka.",
-      src:"UNESCO Melaka"
-    }
-
-    // TAMBAHAN TEMPAT BERSEJARAH
+var lokasiWarisan = [
 
 {
-  n:"Muzium Labuan (Labuan)",
-  t:"2002",
-  c:[5.2831,115.2308],
-  i:"Muzium ini memaparkan sejarah Labuan bermula daripada era Kesultanan Brunei, penjajahan British, Perang Dunia Kedua dan perkembangan Labuan sebagai pusat kewangan luar pesisir.",
-  src:"Jabatan Muzium Malaysia"
+n:"Muzium Kota Kayang (Perlis)",
+t:"1999",
+c:[6.4172,100.1706],
+i:"Muzium ini dibina di atas kawasan bekas istana Raja Perlis dan mempunyai penemuan arkeologi penting termasuk artifak Neolitik.",
+src:"Jabatan Muzium Malaysia"
 },
 
 {
-  n:"Atkinson Clock Tower (Sabah)",
-  t:"1905",
-  c:[5.9848,116.0735],
-  i:"Menara jam tertua di Kota Kinabalu yang dibina sebagai memperingati Francis George Atkinson, pegawai daerah Jesselton yang meninggal dunia akibat malaria.",
-  src:"Sabah Museum Department"
+n:"Balai Besar (Kedah)",
+t:"1735",
+c:[6.1206,100.3664],
+i:"Balai Besar merupakan lokasi rasmi adat istiadat Kesultanan Kedah dan pernah dimusnahkan ketika peperangan Siam.",
+src:"Perbadanan Perpustakaan Awam Kedah"
 },
 
 {
-  n:"Muzium Sabah (Sabah)",
-  t:"1984",
-  c:[5.9749,116.0724],
-  i:"Muzium utama negeri Sabah yang mempamerkan sejarah etnik, budaya tradisional, arkeologi, flora dan fauna Borneo.",
-  src:"Sabah Museum Department"
+n:"Lembah Bujang (Kedah)",
+t:"Abad Ke-4",
+c:[5.6802,100.4468],
+i:"Tapak tamadun Hindu-Buddha tertua di Malaysia yang mempunyai tinggalan candi dan pusat perdagangan awal.",
+src:"Muzium Arkeologi Lembah Bujang"
 },
 
 {
-  n:"Agnes Keith House (Sabah)",
-  t:"1940-an",
-  c:[5.8402,118.1179],
-  i:"Rumah kolonial ini pernah didiami oleh penulis terkenal Agnes Keith yang menghasilkan buku mengenai kehidupan di Borneo Utara semasa era British.",
-  src:"Sandakan Heritage Trail"
+n:"Khoo Kongsi (Pulau Pinang)",
+t:"1906",
+c:[5.4141,100.3375],
+i:"Rumah kongsi masyarakat Cina yang terkenal dengan ukiran naga dan seni bina tradisional China Selatan.",
+src:"Penang Heritage Trust"
 },
 
 {
-  n:"Kota Belud Fort (Sabah)",
-  t:"1897",
-  c:[6.3510,116.4305],
-  i:"Kubu pertahanan British yang dibina bagi mengawal keselamatan kawasan pantai barat Sabah daripada ancaman lanun dan pemberontakan tempatan.",
-  src:"Arkib Negeri Sabah"
+n:"Fort Cornwallis (Pulau Pinang)",
+t:"1786",
+c:[5.4233,100.3390],
+i:"Kubu pertahanan terbesar British di Malaysia yang dibina oleh Francis Light.",
+src:"Jabatan Warisan Negara"
 },
 
 {
-  n:"Fort Margherita (Sarawak)",
-  t:"1879",
-  c:[1.5619,110.3445],
-  i:"Kubu ini dibina oleh Charles Brooke untuk melindungi Kuching daripada serangan lanun. Kini ia dijadikan muzium sejarah Kesultanan Brooke.",
-  src:"Sarawak Museum Department"
+n:"Menara Condong Teluk Intan (Perak)",
+t:"1885",
+c:[4.0253,101.0195],
+i:"Menara ini condong akibat struktur tanah lembut dan pernah digunakan sebagai tangki simpanan air.",
+src:"Majlis Perbandaran Teluk Intan"
 },
 
 {
-  n:"Muzium Budaya Borneo (Sarawak)",
-  t:"2022",
-  c:[1.5586,110.3440],
-  i:"Muzium moden terbesar di Malaysia yang mempamerkan sejarah, budaya dan warisan masyarakat pelbagai etnik di Borneo.",
-  src:"Sarawak Museum Department"
+n:"Kellie's Castle (Perak)",
+t:"1915",
+c:[4.5740,101.0928],
+i:"Istana misteri milik William Kellie Smith yang terkenal dengan lorong rahsia dan seni bina unik.",
+src:"Tourism Perak"
 },
 
 {
-  n:"The Old Courthouse (Sarawak)",
-  t:"1874",
-  c:[1.5580,110.3447],
-  i:"Bangunan mahkamah lama era Rajah Brooke yang kini dijadikan pusat seni, budaya dan warisan sejarah Kuching.",
-  src:"Sarawak Heritage Society"
+n:"Muzium Taiping (Perak)",
+t:"1883",
+c:[4.8519,100.7418],
+i:"Muzium pertama di Malaysia yang menyimpan koleksi sejarah dan zoologi negara.",
+src:"Jabatan Muzium Malaysia"
 },
 
 {
-  n:"Square Tower (Sarawak)",
-  t:"1879",
-  c:[1.5608,110.3453],
-  i:"Bangunan pertahanan kecil berhampiran Sungai Sarawak yang pernah digunakan sebagai penjara dan pusat kawalan keselamatan.",
-  src:"Sarawak Museum Department"
+n:"Masjid Ubudiah (Perak)",
+t:"1917",
+c:[4.7705,100.9424],
+i:"Masjid diraja Perak yang terkenal dengan kubah emas dan seni bina Indo-Saracenic.",
+src:"Jabatan Agama Islam Perak"
 },
 
 {
-  n:"Rumah Nyabau Nanga Sumpa (Sarawak)",
-  t:"1875",
-  c:[1.3114,111.6210],
-  i:"Rumah panjang tradisional kaum Iban yang masih mengekalkan seni bina asal dan budaya masyarakat Dayak sehingga hari ini.",
-  src:"Tourism Sarawak"
+n:"Bangunan Sultan Abdul Samad (Kuala Lumpur)",
+t:"1897",
+c:[3.1486,101.6945],
+i:"Bangunan ikonik yang menjadi simbol sejarah kemerdekaan Malaysia.",
+src:"Jabatan Warisan Negara"
 },
 
 {
-  n:"Kubu Brooke Julau (Sarawak)",
-  t:"1935",
-  c:[2.0170,112.6505],
-  i:"Kubu kayu terakhir yang dibina semasa pemerintahan keluarga Brooke untuk pentadbiran dan keselamatan kawasan pedalaman Sarawak.",
-  src:"Arkib Negeri Sarawak"
+n:"Carcosa Seri Negara (Kuala Lumpur)",
+t:"1898",
+c:[3.1417,101.6892],
+i:"Bekas kediaman rasmi pentadbir British di Tanah Melayu.",
+src:"Arkib Negara Malaysia"
 },
 
 {
-  n:"Batu Bersurat Terengganu",
-  t:"1303",
-  c:[5.4078,103.1060],
-  i:"Bukti awal kedatangan Islam di Tanah Melayu. Batu bersurat ini mengandungi tulisan Jawi tertua yang pernah ditemui di Malaysia.",
-  src:"Jabatan Warisan Negara"
+n:"Rumah Penghulu Abu Seman (Kuala Lumpur)",
+t:"1910",
+c:[3.1507,101.7067],
+i:"Rumah tradisional Melayu yang dipindahkan dari Kedah untuk tujuan pemuliharaan warisan.",
+src:"Badan Warisan Malaysia"
 },
 
 {
-  n:"Lembah Bujang (Kedah)",
-  t:"Abad ke-4",
-  c:[5.6802,100.4468],
-  i:"Tapak tamadun Hindu-Buddha tertua di Malaysia yang mempunyai tinggalan candi, arca dan artifak perdagangan antarabangsa.",
-  src:"Muzium Arkeologi Lembah Bujang"
+n:"Stesen Keretapi Kuala Lumpur",
+t:"1910",
+c:[3.1395,101.6927],
+i:"Bangunan kolonial terkenal dengan gabungan seni bina Mughal dan Moorish.",
+src:"KTMB"
 },
 
 {
-  n:"Rumah Tok Su (Terengganu)",
-  t:"1800-an",
-  c:[5.3290,103.1370],
-  i:"Rumah tradisional Melayu Terengganu yang terkenal dengan seni ukiran kayu halus dan struktur rumah bertiang tinggi.",
-  src:"Muzium Negeri Terengganu"
+n:"Istana Bandar Jugra (Selangor)",
+t:"1899",
+c:[2.8596,101.4428],
+i:"Istana lama Sultan Selangor dengan gabungan seni bina Moorish dan Melayu tradisional.",
+src:"PADAT Selangor"
 },
 
 {
-  n:"Kota Kuala Kedah (Kedah)",
-  t:"1771",
-  c:[6.1004,100.2975],
-  i:"Kubu pertahanan Melayu yang dibina untuk mempertahankan Kedah daripada ancaman Siam dan serangan luar.",
-  src:"Jabatan Muzium Malaysia"
+n:"Galeri Diraja Sultan Abdul Aziz (Selangor)",
+t:"1909",
+c:[3.0733,101.5185],
+i:"Bangunan kolonial yang kini dijadikan galeri sejarah Kesultanan Selangor.",
+src:"PADAT Selangor"
 },
 
 {
-  n:"Makam Mahsuri (Langkawi)",
-  t:"1819",
-  c:[6.3523,99.7996],
-  i:"Tapak legenda Mahsuri yang terkenal dengan sumpahan tujuh keturunan di Langkawi.",
-  src:"LADA Langkawi"
+n:"Istana Seri Menanti (Negeri Sembilan)",
+t:"1902",
+c:[2.6974,102.1585],
+i:"Istana kayu tradisional Minangkabau yang dibina tanpa menggunakan paku besi.",
+src:"Lembaga Muzium Negeri Sembilan"
 },
 
 {
-  n:"Galeri Diraja Sultan Abdul Aziz (Selangor)",
-  t:"1909",
-  c:[3.0733,101.5185],
-  i:"Bangunan kolonial yang kini dijadikan galeri diraja dan memaparkan sejarah Kesultanan Selangor.",
-  src:"PADAT Selangor"
+n:"Kota A Famosa (Melaka)",
+t:"1511",
+c:[2.1923,102.2497],
+i:"Kubu Portugis terkenal yang menjadi simbol penjajahan Portugis di Melaka.",
+src:"PERZIM"
 },
 
 {
-  n:"Muzium Diraja Kuala Kangsar (Perak)",
-  t:"1926",
-  c:[4.7738,100.9405],
-  i:"Istana lama Sultan Perak yang dibina menggunakan kayu keras tempatan dengan seni bina Melayu klasik.",
-  src:"Jabatan Muzium Malaysia"
+n:"Stadthuys (Melaka)",
+t:"1650",
+c:[2.1940,102.2495],
+i:"Bangunan merah peninggalan Belanda yang pernah menjadi pusat pentadbiran kolonial.",
+src:"PERZIM"
 },
 
 {
-  n:"Stesen Keretapi Kuala Lumpur",
-  t:"1910",
-  c:[3.1395,101.6927],
-  i:"Antara bangunan kolonial paling ikonik di Malaysia dengan gabungan seni bina Mughal dan Moorish.",
-  src:"Keretapi Tanah Melayu Berhad"
+n:"Christ Church (Melaka)",
+t:"1753",
+c:[2.1942,102.2496],
+i:"Gereja Protestan tertua di Malaysia yang dibina ketika era Belanda.",
+src:"UNESCO Melaka"
 },
 
 {
-  n:"Masjid Ubudiah (Perak)",
-  t:"1917",
-  c:[4.7705,100.9424],
-  i:"Masjid diraja negeri Perak yang terkenal dengan kubah emas dan seni bina Indo-Saracenic.",
-  src:"Jabatan Agama Islam Perak"
+n:"Istana Besar Johor",
+t:"1866",
+c:[1.4552,103.7554],
+i:"Istana diraja Johor yang kini menjadi Muzium Diraja Johor.",
+src:"Yayasan Warisan Johor"
+},
+
+{
+n:"Muzium Sungai Lembing (Pahang)",
+t:"1906",
+c:[3.9135,103.0335],
+i:"Bekas kawasan perlombongan bawah tanah terbesar dunia.",
+src:"Jabatan Muzium Malaysia"
+},
+
+{
+n:"Masjid Abidin (Terengganu)",
+t:"1793",
+c:[5.3340,103.1423],
+i:"Masjid Putih yang terkenal sebagai antara masjid tertua di Terengganu.",
+src:"Lembaga Muzium Negeri Terengganu"
+},
+
+{
+n:"Batu Bersurat Terengganu",
+t:"1303",
+c:[5.4078,103.1060],
+i:"Bukti awal kedatangan Islam di Tanah Melayu melalui tulisan Jawi tertua.",
+src:"Jabatan Warisan Negara"
+},
+
+{
+n:"Rumah Tok Su (Terengganu)",
+t:"1800-an",
+c:[5.3290,103.1370],
+i:"Rumah tradisional Melayu Terengganu dengan ukiran kayu halus.",
+src:"Muzium Negeri Terengganu"
+},
+
+{
+n:"Istana Jahar (Kelantan)",
+t:"1887",
+c:[6.1322,102.2374],
+i:"Istana kayu tradisional yang kini dijadikan Muzium Adat Istiadat Diraja Kelantan.",
+src:"Perbadanan Muzium Negeri Kelantan"
+},
+
+{
+n:"Masjid Kampung Laut (Kelantan)",
+t:"1700-an",
+c:[6.1456,102.2330],
+i:"Antara masjid tertua di Malaysia dengan seni bina Melayu Nusantara.",
+src:"Jabatan Warisan Negara"
+},
+
+{
+n:"Makam Mahsuri (Langkawi)",
+t:"1819",
+c:[6.3523,99.7996],
+i:"Tapak legenda Mahsuri dan sumpahan tujuh keturunan Langkawi.",
+src:"LADA Langkawi"
+},
+
+{
+n:"Muzium Labuan (Labuan)",
+t:"2002",
+c:[5.2831,115.2308],
+i:"Muzium yang memaparkan sejarah Labuan dari era Kesultanan Brunei hingga Perang Dunia Kedua.",
+src:"Jabatan Muzium Malaysia"
+},
+
+{
+n:"Atkinson Clock Tower (Sabah)",
+t:"1905",
+c:[5.9848,116.0735],
+i:"Menara jam tertua di Kota Kinabalu yang dibina untuk memperingati Francis George Atkinson.",
+src:"Sabah Museum Department"
+},
+
+{
+n:"Muzium Sabah (Sabah)",
+t:"1984",
+c:[5.9749,116.0724],
+i:"Muzium utama Sabah yang mempamerkan budaya etnik dan sejarah Borneo.",
+src:"Sabah Museum Department"
+},
+
+{
+n:"Agnes Keith House (Sabah)",
+t:"1940-an",
+c:[5.8402,118.1179],
+i:"Rumah kolonial terkenal milik penulis Agnes Keith di Sandakan.",
+src:"Sandakan Heritage Trail"
+},
+
+{
+n:"Kota Belud Fort (Sabah)",
+t:"1897",
+c:[6.3510,116.4305],
+i:"Kubu British yang dibina untuk pertahanan kawasan pantai barat Sabah.",
+src:"Arkib Negeri Sabah"
+},
+
+{
+n:"Fort Margherita (Sarawak)",
+t:"1879",
+c:[1.5619,110.3445],
+i:"Kubu pertahanan yang dibina oleh Charles Brooke untuk melindungi Kuching.",
+src:"Sarawak Museum Department"
+},
+
+{
+n:"Muzium Budaya Borneo (Sarawak)",
+t:"2022",
+c:[1.5586,110.3440],
+i:"Muzium terbesar di Malaysia yang mempamerkan budaya masyarakat Borneo.",
+src:"Sarawak Museum Department"
+},
+
+{
+n:"The Old Courthouse (Sarawak)",
+t:"1874",
+c:[1.5580,110.3447],
+i:"Bangunan mahkamah era Brooke yang kini dijadikan pusat budaya.",
+src:"Sarawak Heritage Society"
+},
+
+{
+n:"Square Tower (Sarawak)",
+t:"1879",
+c:[1.5608,110.3453],
+i:"Bangunan pertahanan kecil berhampiran Sungai Sarawak.",
+src:"Sarawak Museum Department"
+},
+
+{
+n:"Rumah Nyabau Nanga Sumpa (Sarawak)",
+t:"1875",
+c:[1.3114,111.6210],
+i:"Rumah panjang tradisional kaum Iban yang masih aktif sehingga kini.",
+src:"Tourism Sarawak"
+},
+
+{
+n:"Kubu Brooke Julau (Sarawak)",
+t:"1935",
+c:[2.0170,112.6505],
+i:"Kubu kayu terakhir era Brooke yang dibina di kawasan pedalaman Sarawak.",
+src:"Arkib Negeri Sarawak"
 }
 
-  ];
+];
 
-  var dialogText = document.getElementById("dialog-text");
+/* DIALOG */
 
-  lokasiWarisan.forEach(function(l){
+var dialogText = document.getElementById("dialog-text");
+
+/* LOOP MARKER */
+
+lokasiWarisan.forEach(function(l){
 
     var marker = L.marker(l.c).addTo(map);
 
-    marker.on('click', function(){
+    marker.on('click',function(){
 
-      var metaverseLink =
-      "https://www.google.com/maps?layer=c&cbll=" +
-      l.c[0] + "," + l.c[1];
+        var metaverseLink =
+        "https://www.google.com/maps?layer=c&cbll="
+        + l.c[0] + "," + l.c[1];
 
-      dialogText.innerHTML = `
-        <strong>> LOKASI:</strong> ${l.n}<br><br>
+        dialogText.innerHTML = `
 
-        <strong>> TAHUN:</strong> ${l.t}<br><br>
+        <strong>> LOKASI:</strong>
+        ${l.n}
+
+        <br><br>
+
+        <strong>> TAHUN:</strong>
+        ${l.t}
+
+        <br><br>
 
         ${l.i}
 
         <span class="source-text">
-          SUMBER SISTEM: ${l.src}
+
+        SUMBER SISTEM:
+        ${l.src}
+
         </span>
 
         <a href="${metaverseLink}"
-           target="_blank"
-           class="metaverse-btn">
+        target="_blank"
+        class="metaverse-btn">
 
-           [ AKSES 360° ]
+        [ AKSES 360° ]
+
         </a>
-      `;
+
+        `;
+
     });
 
-  });
+});
 
 </script>
 
