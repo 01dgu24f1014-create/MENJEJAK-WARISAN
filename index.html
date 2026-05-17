@@ -217,14 +217,14 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* DATA TEMPAT BERSEJARAH (LOKASI 100% ADA STREET VIEW & KOORDINAT DISELUARI KEPADA JALAN UTAMA) */
+/* DATA TEMPAT BERSEJARAH (KOORDINAT TELAH DIANJAK KE JALAN RAYA UTAMA UNTUK STREET VIEW TEPAT) */
 
 var lokasiWarisan = [
 
 {
 n:"Bangunan Sultan Abdul Samad (Kuala Lumpur)",
 t:"1897",
-c:[3.148785, 101.694314],
+c:[3.148530, 101.693333], /* Diubah ke Jalan Raja */
 i:"Seni bina ikonik berkonsepkan neo-Mughal / Moorish ini direka oleh AC Norman dan RAJ Bidwell sebagai pejabat pentadbiran Kerajaan Kolonial British. Bangunan ini dinamakan bersempena nama Sultan Selangor yang memerintah pada masa itu. Ia menjadi saksi detik paling bersejarah negara apabila bendera Union Jack diturunkan buat kali terakhir pada tengah malam 31 Ogos 1957.",
 src:"Jabatan Warisan Negara"
 },
@@ -232,7 +232,7 @@ src:"Jabatan Warisan Negara"
 {
 n:"Stesen Keretapi Kuala Lumpur",
 t:"1910",
-c:[3.139655, 101.692694],
+c:[3.139626, 101.693630], /* Diubah ke Jalan Sultan Hishamuddin */
 i:"Sebuah lagi mercu tanda hebat rekaan Arthur Benison Hubback yang memaparkan pengaruh seni bina Islam utara India (Mughal-Moorish) dengan ciri menara kubah serta gerbang melengkung. Stesen ini menggantikan stesen kereta api lama yang dibina pada tahun 1886, dan pernah menjadi hab pengangkutan rel utama di ibu kota sebelum fungsi tersebut diambil alih oleh KL Sentral pada 2001.",
 src:"KTMB"
 },
@@ -240,7 +240,7 @@ src:"KTMB"
 {
 n:"Menara Condong Teluk Intan (Perak)",
 t:"1885",
-c:[4.025345, 101.019448],
+c:[4.025345, 101.019183], /* Diubah ke Jalan Ah Cheany */
 i:"Dibina oleh seorang arkitek tempatan bernama Leong Choon Cheong, menara setinggi 25.5 meter ini pada asalnya berfungsi sebagai tangki simpanan air bagi kegunaan domestik dan pemadaman kebakaran. Beban air yang amat berat bersama struktur tanah yang lembut menyebabkan menara ini condong.",
 src:"Majlis Perbandaran Teluk Intan"
 },
@@ -248,7 +248,7 @@ src:"Majlis Perbandaran Teluk Intan"
 {
 n:"Kellie's Castle (Perak)",
 t:"1915",
-c:[4.574109, 101.092822],
+c:[4.574345, 101.089823], /* Diubah ke Jalan Gopeng hadapan jambatan */
 i:"Sebuah istana impian yang tidak sempat disiapkan milik seorang peladang getah dari Scotland, William Kellie Smith, sebagai hadiah buat isteri tercinta. Pembinaannya terhenti secara mendadak apabila William meninggal dunia. Bangunan eksotik ini menggabungkan seni bina Greco-Roman, Moorish, dan India.",
 src:"Tourism Perak"
 },
@@ -256,7 +256,7 @@ src:"Tourism Perak"
 {
 n:"Masjid Ubudiah (Perak)",
 t:"1917",
-c:[4.770678, 100.942352],
+c:[4.770959, 100.942704], /* Diubah ke Jalan Istana */
 i:"Masjid Diraja ini dibina atas perintah Sultan Idris Murshidul 'Adzam Shah I sebagai tanda kesyukuran atas kesembuhan baginda daripada gering. Direka oleh Arthur Benison Hubback, seni binanya menerapkan gaya Indo-Saracenic dengan kubah emas yang megah.",
 src:"Jabatan Agama Islam Perak"
 },
@@ -264,7 +264,7 @@ src:"Jabatan Agama Islam Perak"
 {
 n:"Khoo Kongsi (Pulau Pinang)",
 t:"1906",
-c:[5.414164, 100.337482],
+c:[5.414343, 100.337582], /* Diubah ke Cannon Square */
 i:"Sebuah rumah kongsi persatuan puak Cina daripada keturunan Leong San Tong (Khoo). Ia dibina semula pada skala yang lebih kecil selepas terbakar pada 1901, namun kekal sarat dengan ukiran naga, batu hiasan mewah, dan seni bina tradisional China Selatan.",
 src:"Penang Heritage Trust"
 },
@@ -272,7 +272,7 @@ src:"Penang Heritage Trust"
 {
 n:"Fort Cornwallis (Pulau Pinang)",
 t:"1786",
-c:[5.423078, 100.340078],
+c:[5.421731, 100.341398], /* Diubah ke Jalan Tun Syed Sheh Barakbah */
 i:"Kubu pertahanan berbentuk bintang yang dibina oleh Francis Light sejurus selepas pihak British menduduki Pulau Pinang. Ia menempatkan Meriam Seri Rambai yang terkenal dan tidak pernah terlibat dalam sebarang pertempuran aktif sepanjang sejarah kolonial.",
 src:"Jabatan Warisan Negara"
 },
@@ -280,7 +280,7 @@ src:"Jabatan Warisan Negara"
 {
 n:"Balai Besar (Kedah)",
 t:"1735",
-c:[6.120612, 100.366474],
+c:[6.120286, 100.366750], /* Diubah ke Jalan Pekan Melayu */
 i:"Mula dibina oleh Sultan Muhammad Jiwa Zainal Adilin Mu'adzam Shah II sebagai pusat pemerintahan. Bangunan ini menjadi saksi bisu kepada pelbagai upacara rasmi dan adat istiadat perkahwinan diraja Kesultanan Kedah.",
 src:"Perbadanan Perpustakaan Awam Kedah"
 },
@@ -288,7 +288,7 @@ src:"Perbadanan Perpustakaan Awam Kedah"
 {
 n:"Makam Mahsuri (Langkawi)",
 t:"1819",
-c:[6.352332, 99.799631],
+c:[6.352467, 99.797177], /* Diubah ke Pintu Masuk / Jalan Makam Mahsuri */
 i:"Tapak peristirahatan terakhir seorang wanita suci bernama Mahsuri yang dijatuhkan hukuman bunuh akibat fitnah murtad dan curang. Sebelum menghembuskan nafas terakhir, beliau bersumpah Langkawi akan menjadi padang jarak padang tekukur selama tujuh keturunan.",
 src:"LADA Langkawi"
 },
@@ -296,7 +296,7 @@ src:"LADA Langkawi"
 {
 n:"Istana Jahar (Kelantan)",
 t:"1887",
-c:[6.132194, 102.237466],
+c:[6.132470, 102.237302], /* Diubah ke Jalan Hilir Kota */
 i:"Dibina oleh Sultan Ahmad Mulong Shah untuk cucunda baginda. Nama 'Jahar' diambil sempena pokok jahar yang tumbuh di pekarangan istana. Bangunan kayu ini mempamerkan seni pertukangan kayu Kelantan yang sangat halus.",
 src:"Perbadanan Muzium Negeri Kelantan"
 },
@@ -304,7 +304,7 @@ src:"Perbadanan Muzium Negeri Kelantan"
 {
 n:"Masjid Abidin (Terengganu)",
 t:"1793",
-c:[5.334057, 103.142512],
+c:[5.333857, 103.142838], /* Diubah ke Jalan Masjid */
 i:"Diasaskan oleh Sultan Zainal Abidin Shah II, masjid ini turut dikenali sebagai Masjid Putih atau Masjid Besar. Ia menempatkan makam diraja keluarga Kesultanan Terengganu dan telah melalui beberapa siri pembesaran tanpa menjejaskan identiti klasiknya.",
 src:"Lembaga Muzium Negeri Terengganu"
 },
@@ -312,7 +312,7 @@ src:"Lembaga Muzium Negeri Terengganu"
 {
 n:"Istana Seri Menanti (Negeri Sembilan)",
 t:"1902",
-c:[2.697415, 102.158145],
+c:[2.697089, 102.158434], /* Diubah ke Jalan Istana */
 i:"Sebuah kebanggaan warisan seni bina Melayu Minangkabau. Istana kayu empat tingkat ini direka oleh dua tukang kayu tempatan dan dibina menggunakan 99 batang tiang kayu penak hitam tanpa menggunakan sebarang paku besi.",
 src:"Lembaga Muzium Negeri Sembilan"
 },
@@ -320,7 +320,7 @@ src:"Lembaga Muzium Negeri Sembilan"
 {
 n:"Stadthuys & Christ Church (Melaka)",
 t:"1650 & 1753",
-c:[2.194209, 102.249272],
+c:[2.194278, 102.249219], /* Diubah ke Jalan Gereja */
 i:"Kompleks bangunan peninggalan kolonial Belanda yang tertua di Asia Tenggara. Bangunan berwarna merah bata ini mencerminkan kejuruteraan klasik Belanda dengan dinding yang tebal serta menempatkan gereja Protestan bersejarah di sebelahnya.",
 src:"PERZIM & UNESCO"
 },
@@ -328,7 +328,7 @@ src:"PERZIM & UNESCO"
 {
 n:"Kota A Famosa (Melaka)",
 t:"1511",
-c:[2.192317, 102.249641],
+c:[2.192138, 102.249495], /* Diubah ke Jalan Kota */
 i:"Kubu besar ini dibina oleh pihak Portugis namun hampir musnah diletupkan British pada 1807. Berkat usaha Sir Stamford Raffles, struktur pintu gerbang 'Porta de Santiago' ini berjaya diselamatkan.",
 src:"PERZIM"
 },
@@ -336,7 +336,7 @@ src:"PERZIM"
 {
 n:"Istana Besar Johor",
 t:"1866",
-c:[1.455208, 103.755434],
+c:[1.455248, 103.756201], /* Diubah ke Jalan Tun Dr Ismail */
 i:"Dibina atas titah Sultan Sir Abu Bakar. Bangunan ini menampilkan gabungan unik antara seni bina Renaissance Barat di bahagian luar dan reka bentuk dalaman berciri tradisi Melayu-Islam. Kini ia menjadi Muzium Diraja Abu Bakar.",
 src:"Yayasan Warisan Johor"
 },
@@ -344,7 +344,7 @@ src:"Yayasan Warisan Johor"
 {
 n:"Atkinson Clock Tower (Sabah)",
 t:"1905",
-c:[5.984855, 116.073359],
+c:[5.984635, 116.073280], /* Diubah ke Jalan Tun Fuad Stephens */
 i:"Struktur kayu tertua yang terselamat daripada kemusnahan bom Perang Dunia Kedua di Kota Kinabalu. Dibina untuk mengenang Francis George Atkinson, Pegawai Daerah pertama yang meninggal dunia akibat malaria pada usia 28 tahun.",
 src:"Sabah Museum Department"
 },
@@ -352,7 +352,7 @@ src:"Sabah Museum Department"
 {
 n:"The Old Courthouse (Sarawak)",
 t:"1874",
-c:[1.558307, 110.344449],
+c:[1.558778, 110.344158], /* Diubah ke Jalan Tun Abang Haji Openg / Main Bazaar */
 i:"Dibina semasa era pemerintahan Rajah Charles Brooke. Struktur kompleks bangunan ini dibina daripada dinding batu konkrit tebal beratap genting dengan reka bentuk tiang ala Roman untuk dijadikan pusat kehakiman dan pentadbiran.",
 src:"Sarawak Heritage Society"
 },
@@ -360,7 +360,7 @@ src:"Sarawak Heritage Society"
 {
 n:"Muzium Budaya Borneo (Sarawak)",
 t:"2022",
-c:[1.558564, 110.343940],
+c:[1.557457, 110.343603], /* Diubah ke Jalan Tun Abang Haji Openg */
 i:"Walaupun bangunannya baharu, ia memelihara warisan ribuan tahun. Muzium kedua terbesar di Asia Tenggara ini memaparkan reka bentuk bumbung keemasan berilhamkan seni anyaman tradisional Sarawak.",
 src:"Sarawak Museum Department"
 }
@@ -379,8 +379,8 @@ lokasiWarisan.forEach(function(l){
 
     marker.on('click',function(){
 
-        /* FORMULA URL RASMI GOOGLE STREET VIEW YANG DISERAGAMKAN */
-        var metaverseLink = `https://www.google.com/maps?layer=c&cbll=${l.c[0]},${l.c[1]}`;
+        /* FORMULA RASMI GOOGLE MAPS API UNTUK MEMAKSA PAPARAN STREET VIEW (PANO) */
+        var metaverseLink = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${l.c[0]},${l.c[1]}`;
 
         dialogText.innerHTML = `
 
