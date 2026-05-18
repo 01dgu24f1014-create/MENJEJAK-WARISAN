@@ -6,7 +6,10 @@
 
 <title>MENJEJAK WARISAN - METAVERSE HUB</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
@@ -15,15 +18,19 @@ body{
     padding:30px;
     background:#050505;
     background-image: radial-gradient(circle,#1a1a2e 0%,#050505 80%);
-    font-family:'Press Start 2P', cursive;
+    
+    /* MENGGUNAKAN FONT LORA UNTUK KESELURUHAN WEB SUPAYA TEKS JELAS */
+    font-family: 'Lora', serif;
     color:white;
 }
 
-/* TAJUK */
+/* TAJUK (MENGGUNAKAN FONT CINZEL UNTUK MATERIAL WARISAN YANG GAH) */
 .header-title{
+    font-family: 'Cinzel', serif;
     text-align:center;
-    font-size:28px;
+    font-size:36px;
     margin-bottom:10px;
+    letter-spacing: 3px;
     text-shadow:
     0 0 5px #fff,
     0 0 10px #ff00de,
@@ -32,10 +39,12 @@ body{
 }
 
 .sub-title{
+    font-family: 'Cinzel', serif;
     text-align:center;
-    font-size:10px;
+    font-size:13px;
     margin-bottom:40px;
     color:#e0ffff;
+    letter-spacing: 2px;
     text-shadow:
     0 0 5px #00ffff,
     0 0 10px #00ffff;
@@ -71,18 +80,20 @@ body{
 }
 
 .dialog-title{
+    font-family: 'Cinzel', serif;
     color:#39ff14;
-    font-size:14px;
+    font-size:18px;
     margin-top:0;
     margin-bottom:20px;
     border-bottom:1px dashed #39ff14;
     padding-bottom:10px;
+    letter-spacing: 1px;
     text-shadow:
     0 0 5px #39ff14;
 }
 
 #dialog-text{
-    font-size:11px;
+    font-size:15px; /* Ditukar dari 11px ke 15px supaya sangat selesa dibaca */
     line-height:1.9;
     color:#e0ffff;
 }
@@ -93,14 +104,15 @@ body{
     padding-top:10px;
     border-top:1px dashed #666;
     color:#ffaa00;
-    font-size:9px;
+    font-size:12px;
 }
 
 /* BUTTON */
 .metaverse-btn{
+    font-family: 'Cinzel', serif;
     display:inline-block;
     margin-top:20px;
-    padding:12px 18px;
+    padding:12px 22px;
     text-decoration:none;
     color:#ff00de;
     border:2px solid #ff00de;
@@ -108,7 +120,9 @@ body{
     0 0 10px #ff00de,
     inset 0 0 5px #ff00de;
     transition:0.3s;
-    font-size:10px;
+    font-size:13px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .metaverse-btn:hover{
@@ -124,13 +138,13 @@ body{
         padding:15px;
     }
     .header-title{
-        font-size:18px;
+        font-size:24px;
     }
     .sub-title{
-        font-size:8px;
+        font-size:10px;
     }
     #dialog-text{
-        font-size:9px;
+        font-size:13px;
     }
 }
 </style>
@@ -167,13 +181,13 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* DATA TEMPAT BERSEJARAH (KOORDINAT TELAH DITUKAR KE DECIMAL DEGREES BERDASARKAN INPUT BARU) */
+/* DATA TEMPAT BERSEJARAH */
 var lokasiWarisan = [
 
 {
 n:"Bangunan Sultan Abdul Samad (Kuala Lumpur)",
 t:"1897",
-c:[3.148611, 101.694417], /* Dikemas kini */
+c:[3.148611, 101.694417],
 i:"Seni bina ikonik berkonsepkan neo-Mughal / Moorish ini direka oleh AC Norman dan RAJ Bidwell sebagai pejabat pentadbiran Kerajaan Kolonial British. Bangunan ini dinamakan bersempena nama Sultan Selangor yang memerintah pada masa itu. Ia menjadi saksi detik paling bersejarah negara apabila bendera Union Jack diturunkan buat kali terakhir pada tengah malam 31 Ogos 1957.",
 src:"Jabatan Warisan Negara"
 },
@@ -181,7 +195,7 @@ src:"Jabatan Warisan Negara"
 {
 n:"Stesen Keretapi Kuala Lumpur",
 t:"1910",
-c:[3.146944, 101.693917], /* Dikemas kini */
+c:[3.146944, 101.693917],
 i:"Sebuah lagi mercu tanda hebat rekaan Arthur Benison Hubback yang memaparkan pengaruh seni bina Islam utara India (Mughal-Moorish) dengan ciri menara kubah serta gerbang melengkung. Stesen ini menggantikan stesen kereta api lama yang dibina pada tahun 1886, dan pernah menjadi hab pengangkutan rel utama di ibu kota sebelum fungsi tersebut diambil alih oleh KL Sentral pada 2001.",
 src:"KTMB"
 },
@@ -190,14 +204,14 @@ src:"KTMB"
 n:"Menara Condong Teluk Intan (Perak)",
 t:"1885",
 c:[4.025345, 101.019183], 
-i:"Dibina oleh seorang arkitek tempatan bernama Leong Choon Cheong, menara setinggi 25.5 meter ini pada asalnya berfungsi sebagai tangki simpanan air bagi kegunaan domestik dan pemadaman kebakaran. Beban air yang amat berat bersama struktur tanah yang lembut menyebabkan menara ini condong.",
+i:"Dibina oleh seorang arkitek tempatan bernama Leong Choon Cheong, menara setinggi 25.5 meter ini pada asalnya berfungsi sebagai tangki simpanan air bagi kegunaan domestik and pemadaman kebakaran. Beban air yang amat berat bersama struktur tanah yang lembut menyebabkan menara ini condong.",
 src:"Majlis Perbandaran Teluk Intan"
 },
 
 {
 n:"Kellie's Castle (Perak)",
 t:"1915",
-c:[4.474500, 101.087694], /* Dikemas kini */
+c:[4.474500, 101.087694],
 i:"Sebuah istana impian yang tidak sempat disiapkan milik seorang peladang getah dari Scotland, William Kellie Smith, sebagai hadiah buat isteri tercinta. Pembinaannya terhenti secara mendadak apabila William meninggal dunia. Bangunan eksotik ini menggabungkan seni bina Greco-Roman, Moorish, dan India.",
 src:"Tourism Perak"
 },
@@ -205,7 +219,7 @@ src:"Tourism Perak"
 {
 n:"Masjid Ubudiah (Perak)",
 t:"1917",
-c:[4.763972, 100.950917], /* Dikemas kini */
+c:[4.763972, 100.950917],
 i:"Masjid Diraja ini dibina atas perintah Sultan Idris Murshidul 'Adzam Shah I sebagai tanda kesyukuran atas kesembuhan baginda daripada gering. Direka oleh Arthur Benison Hubback, seni binanya menerapkan gaya Indo-Saracenic dengan kubah emas yang megah.",
 src:"Jabatan Agama Islam Perak"
 },
@@ -221,7 +235,7 @@ src:"Penang Heritage Trust"
 {
 n:"Fort Cornwallis (Pulau Pinang)",
 t:"1786",
-c:[5.420389, 100.344528], /* Dikemas kini */
+c:[5.420389, 100.344528],
 i:"Kubu pertahanan berbentuk bintang yang dibina oleh Francis Light sejurus selepas pihak British menduduki Pulau Pinang. Ia menempatkan Meriam Seri Rambai yang terkenal dan tidak pernah terlibat dalam sebarang pertempuran aktif sepanjang sejarah kolonial.",
 src:"Jabatan Warisan Negara"
 },
@@ -237,7 +251,7 @@ src:"Perbadanan Perpustakaan Awam Kedah"
 {
 n:"Makam Mahsuri (Langkawi)",
 t:"1819",
-c:[6.339250, 99.784111], /* Dikemas kini */
+c:[6.339250, 99.784111],
 i:"Tapak peristirahatan terakhir seorang wanita suci bernama Mahsuri yang dijatuhkan hukuman bunuh akibat fitnah murtad dan curang. Sebelum menghembuskan nafas terakhir, beliau bersumpah Langkawi akan menjadi padang jarak padang tekukur selama tujuh keturunan.",
 src:"LADA Langkawi"
 },
@@ -245,7 +259,7 @@ src:"LADA Langkawi"
 {
 n:"Istana Jahar (Kelantan)",
 t:"1887",
-c:[6.131444, 102.237111], /* Dikemas kini */
+c:[6.131444, 102.237111],
 i:"Dibina oleh Sultan Ahmad Mulong Shah untuk cucunda baginda. Nama 'Jahar' diambil sempena pokok jahar yang tumbuh di pekarangan istana. Bangunan kayu ini mempamerkan seni pertukangan kayu Kelantan yang sangat halus.",
 src:"Perbadanan Muzium Negeri Kelantan"
 },
@@ -253,7 +267,7 @@ src:"Perbadanan Muzium Negeri Kelantan"
 {
 n:"Masjid Abidin (Terengganu)",
 t:"1793",
-c:[5.334361, 103.137694], /* Dikemas kini */
+c:[5.334361, 103.137694],
 i:"Diasaskan oleh Sultan Zainal Abidin Shah II, masjid ini turut dikenali sebagai Masjid Putih atau Masjid Besar. Ia menempatkan makam diraja keluarga Kesultanan Terengganu dan telah melalui beberapa siri pembesaran tanpa menjejaskan identiti klasiknya.",
 src:"Lembaga Muzium Negeri Terengganu"
 },
@@ -277,7 +291,7 @@ src:"PERZIM & UNESCO"
 {
 n:"Kota A Famosa (Melaka)",
 t:"1511",
-c:[2.191722, 102.250361], /* Dikemas kini */
+c:[2.191722, 102.250361],
 i:"Kubu besar ini dibina oleh pihak Portugis namun hampir musnah diletupkan British pada 1807. Berkat usaha Sir Stamford Raffles, struktur pintu gerbang 'Porta de Santiago' ini berjaya diselamatkan.",
 src:"PERZIM"
 },
@@ -285,7 +299,7 @@ src:"PERZIM"
 {
 n:"Istana Besar Johor",
 t:"1866",
-c:[1.455306, 103.756444], /* Dikemas kini */
+c:[1.455306, 103.756444],
 i:"Dibina atas titah Sultan Sir Abu Bakar. Bangunan ini menampilkan gabungan unik antara seni bina Renaissance Barat di bahagian luar dan reka bentuk dalaman berciri tradisi Melayu-Islam. Kini ia menjadi Muzium Diraja Abu Bakar.",
 src:"Yayasan Warisan Johor"
 },
@@ -293,7 +307,7 @@ src:"Yayasan Warisan Johor"
 {
 n:"Atkinson Clock Tower (Sabah)",
 t:"1905",
-c:[5.981972, 116.077444], /* Dikemas kini */
+c:[5.981972, 116.077444],
 i:"Struktur kayu tertua yang terselamat daripada kemusnahan bom Perang Dunia Kedua di Kota Kinabalu. Dibina untuk mengenang Francis George Atkinson, Pegawai Daerah pertama yang meninggal dunia akibat malaria pada usia 28 tahun.",
 src:"Sabah Museum Department"
 },
@@ -309,7 +323,7 @@ src:"Sarawak Heritage Society"
 {
 n:"Muzium Budaya Borneo (Sarawak)",
 t:"2022",
-c:[1.555472, 110.342861], /* Dikemas kini */
+c:[1.555472, 110.342861],
 i:"Walaupun bangunannya baharu, ia memelihara warisan ribuan tahun. Muzium kedua terbesar di Asia Tenggara ini memaparkan reka bentuk bumbung keemasan berilhamkan seni anyaman tradisional Sarawak.",
 src:"Sarawak Museum Department"
 }
@@ -325,8 +339,8 @@ lokasiWarisan.forEach(function(l){
 
     marker.on('click',function(){
         
-        /* URL INI TELAH DIBAIKI: Menggunakan standard carian koordinat Google Maps untuk terus membuka Street View 360 */
-        var metaverseLink = `https://www.google.com/maps?layer=c&cbll=${l.c[0]},${l.c[1]}`;
+        /* PEMBETULAN: Menggunakan sintaks template literal ${l.c[0]} yang betul & pautan URL Google Maps rasmi yang stabil */
+        var metaverseLink = `https://www.google.com/maps?q=&layer=c&cbll=${l.c[0]},${l.c[1]}`;
 
         dialogText.innerHTML = `
         <strong>> LOKASI:</strong>
