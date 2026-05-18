@@ -7,11 +7,9 @@
 <title>MENJEJAK WARISAN - METAVERSE HUB</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-
 body{
     margin:0;
     padding:30px;
@@ -22,12 +20,10 @@ body{
 }
 
 /* TAJUK */
-
 .header-title{
     text-align:center;
     font-size:28px;
     margin-bottom:10px;
-
     text-shadow:
     0 0 5px #fff,
     0 0 10px #ff00de,
@@ -40,23 +36,19 @@ body{
     font-size:10px;
     margin-bottom:40px;
     color:#e0ffff;
-
     text-shadow:
     0 0 5px #00ffff,
     0 0 10px #00ffff;
 }
 
 /* MAP */
-
 .map-container{
     padding:5px;
     border:3px solid #00ffff;
     border-radius:10px;
-
     box-shadow:
     0 0 15px #00ffff,
     inset 0 0 15px #00ffff;
-
     background:black;
     margin-bottom:30px;
 }
@@ -68,15 +60,11 @@ body{
 }
 
 /* DIALOG BOX */
-
 .dialog-box{
     background:rgba(0,0,0,0.85);
-
     border:3px solid #39ff14;
     border-radius:10px;
-
     padding:25px;
-
     box-shadow:
     0 0 15px #39ff14,
     inset 0 0 10px #39ff14;
@@ -85,13 +73,10 @@ body{
 .dialog-title{
     color:#39ff14;
     font-size:14px;
-
     margin-top:0;
     margin-bottom:20px;
-
     border-bottom:1px dashed #39ff14;
     padding-bottom:10px;
-
     text-shadow:
     0 0 5px #39ff14;
 }
@@ -104,112 +89,77 @@ body{
 
 .source-text{
     display:block;
-
     margin-top:15px;
     padding-top:10px;
-
     border-top:1px dashed #666;
-
     color:#ffaa00;
     font-size:9px;
 }
 
 /* BUTTON */
-
 .metaverse-btn{
     display:inline-block;
-
     margin-top:20px;
     padding:12px 18px;
-
     text-decoration:none;
     color:#ff00de;
-
     border:2px solid #ff00de;
-
     box-shadow:
     0 0 10px #ff00de,
     inset 0 0 5px #ff00de;
-
     transition:0.3s;
-
     font-size:10px;
 }
 
 .metaverse-btn:hover{
     background:#ff00de;
     color:white;
-
     box-shadow:
     0 0 20px #ff00de;
 }
 
 /* RESPONSIVE */
-
 @media(max-width:768px){
-
     body{
         padding:15px;
     }
-
     .header-title{
         font-size:18px;
     }
-
     .sub-title{
         font-size:8px;
     }
-
     #dialog-text{
         font-size:9px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<h1 class="header-title">
-MENJEJAK WARISAN
-</h1>
-
-<h3 class="sub-title">
-" WARISAN DIJEJAK, IDENTITI DIJAGA " // METAVERSE HUB
-</h3>
+<h1 class="header-title">MENJEJAK WARISAN</h1>
+<h3 class="sub-title">" WARISAN DIJEJAK, IDENTITI DIJAGA " // METAVERSE HUB</h3>
 
 <div class="map-container">
     <div id="map"></div>
 </div>
 
 <section class="dialog-box">
-
-    <h3 class="dialog-title">
-    TERMINAL DATA SEJARAH
-    </h3>
-
+    <h3 class="dialog-title">TERMINAL DATA SEJARAH</h3>
     <div id="dialog-text">
-
         Sistem sedia...<br><br>
-
-        Klik mana-mana pin lokasi pada peta untuk
-        mengakses arkib sejarah digital yang disokong dengan visual 360°.
-
+        Klik mana-mana pin lokasi pada peta untuk mengakses arkib sejarah digital yang disokong dengan visual 360°.
     </div>
-
 </section>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-
 /* PAPARAN PETA */
-
 var map = L.map('map').setView([4.2105,101.9758],6);
 
 /* DARK MODE MAP */
-
 L.tileLayer(
 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
 {
@@ -217,14 +167,13 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* DATA TEMPAT BERSEJARAH (KOORDINAT TELAH DIANJAK KE JALAN RAYA UTAMA UNTUK STREET VIEW TEPAT) */
-
+/* DATA TEMPAT BERSEJARAH (KOORDINAT TELAH DITUKAR KE DECIMAL DEGREES BERDASARKAN INPUT BARU) */
 var lokasiWarisan = [
 
 {
 n:"Bangunan Sultan Abdul Samad (Kuala Lumpur)",
 t:"1897",
-c:[3.148530, 101.693333], /* Diubah ke Jalan Raja */
+c:[3.148611, 101.694417], /* Dikemas kini */
 i:"Seni bina ikonik berkonsepkan neo-Mughal / Moorish ini direka oleh AC Norman dan RAJ Bidwell sebagai pejabat pentadbiran Kerajaan Kolonial British. Bangunan ini dinamakan bersempena nama Sultan Selangor yang memerintah pada masa itu. Ia menjadi saksi detik paling bersejarah negara apabila bendera Union Jack diturunkan buat kali terakhir pada tengah malam 31 Ogos 1957.",
 src:"Jabatan Warisan Negara"
 },
@@ -232,7 +181,7 @@ src:"Jabatan Warisan Negara"
 {
 n:"Stesen Keretapi Kuala Lumpur",
 t:"1910",
-c:[3.139626, 101.693630], /* Diubah ke Jalan Sultan Hishamuddin */
+c:[3.146944, 101.693917], /* Dikemas kini */
 i:"Sebuah lagi mercu tanda hebat rekaan Arthur Benison Hubback yang memaparkan pengaruh seni bina Islam utara India (Mughal-Moorish) dengan ciri menara kubah serta gerbang melengkung. Stesen ini menggantikan stesen kereta api lama yang dibina pada tahun 1886, dan pernah menjadi hab pengangkutan rel utama di ibu kota sebelum fungsi tersebut diambil alih oleh KL Sentral pada 2001.",
 src:"KTMB"
 },
@@ -240,7 +189,7 @@ src:"KTMB"
 {
 n:"Menara Condong Teluk Intan (Perak)",
 t:"1885",
-c:[4.025345, 101.019183], /* Diubah ke Jalan Ah Cheany */
+c:[4.025345, 101.019183], 
 i:"Dibina oleh seorang arkitek tempatan bernama Leong Choon Cheong, menara setinggi 25.5 meter ini pada asalnya berfungsi sebagai tangki simpanan air bagi kegunaan domestik dan pemadaman kebakaran. Beban air yang amat berat bersama struktur tanah yang lembut menyebabkan menara ini condong.",
 src:"Majlis Perbandaran Teluk Intan"
 },
@@ -248,7 +197,7 @@ src:"Majlis Perbandaran Teluk Intan"
 {
 n:"Kellie's Castle (Perak)",
 t:"1915",
-c:[4.574345, 101.089823], /* Diubah ke Jalan Gopeng hadapan jambatan */
+c:[4.474500, 101.087694], /* Dikemas kini */
 i:"Sebuah istana impian yang tidak sempat disiapkan milik seorang peladang getah dari Scotland, William Kellie Smith, sebagai hadiah buat isteri tercinta. Pembinaannya terhenti secara mendadak apabila William meninggal dunia. Bangunan eksotik ini menggabungkan seni bina Greco-Roman, Moorish, dan India.",
 src:"Tourism Perak"
 },
@@ -256,7 +205,7 @@ src:"Tourism Perak"
 {
 n:"Masjid Ubudiah (Perak)",
 t:"1917",
-c:[4.770959, 100.942704], /* Diubah ke Jalan Istana */
+c:[4.763972, 100.950917], /* Dikemas kini */
 i:"Masjid Diraja ini dibina atas perintah Sultan Idris Murshidul 'Adzam Shah I sebagai tanda kesyukuran atas kesembuhan baginda daripada gering. Direka oleh Arthur Benison Hubback, seni binanya menerapkan gaya Indo-Saracenic dengan kubah emas yang megah.",
 src:"Jabatan Agama Islam Perak"
 },
@@ -264,7 +213,7 @@ src:"Jabatan Agama Islam Perak"
 {
 n:"Khoo Kongsi (Pulau Pinang)",
 t:"1906",
-c:[5.414343, 100.337582], /* Diubah ke Cannon Square */
+c:[5.414343, 100.337582], 
 i:"Sebuah rumah kongsi persatuan puak Cina daripada keturunan Leong San Tong (Khoo). Ia dibina semula pada skala yang lebih kecil selepas terbakar pada 1901, namun kekal sarat dengan ukiran naga, batu hiasan mewah, dan seni bina tradisional China Selatan.",
 src:"Penang Heritage Trust"
 },
@@ -272,7 +221,7 @@ src:"Penang Heritage Trust"
 {
 n:"Fort Cornwallis (Pulau Pinang)",
 t:"1786",
-c:[5.421731, 100.341398], /* Diubah ke Jalan Tun Syed Sheh Barakbah */
+c:[5.420389, 100.344528], /* Dikemas kini */
 i:"Kubu pertahanan berbentuk bintang yang dibina oleh Francis Light sejurus selepas pihak British menduduki Pulau Pinang. Ia menempatkan Meriam Seri Rambai yang terkenal dan tidak pernah terlibat dalam sebarang pertempuran aktif sepanjang sejarah kolonial.",
 src:"Jabatan Warisan Negara"
 },
@@ -280,7 +229,7 @@ src:"Jabatan Warisan Negara"
 {
 n:"Balai Besar (Kedah)",
 t:"1735",
-c:[6.120286, 100.366750], /* Diubah ke Jalan Pekan Melayu */
+c:[6.120286, 100.366750],
 i:"Mula dibina oleh Sultan Muhammad Jiwa Zainal Adilin Mu'adzam Shah II sebagai pusat pemerintahan. Bangunan ini menjadi saksi bisu kepada pelbagai upacara rasmi dan adat istiadat perkahwinan diraja Kesultanan Kedah.",
 src:"Perbadanan Perpustakaan Awam Kedah"
 },
@@ -288,7 +237,7 @@ src:"Perbadanan Perpustakaan Awam Kedah"
 {
 n:"Makam Mahsuri (Langkawi)",
 t:"1819",
-c:[6.352467, 99.797177], /* Diubah ke Pintu Masuk / Jalan Makam Mahsuri */
+c:[6.339250, 99.784111], /* Dikemas kini */
 i:"Tapak peristirahatan terakhir seorang wanita suci bernama Mahsuri yang dijatuhkan hukuman bunuh akibat fitnah murtad dan curang. Sebelum menghembuskan nafas terakhir, beliau bersumpah Langkawi akan menjadi padang jarak padang tekukur selama tujuh keturunan.",
 src:"LADA Langkawi"
 },
@@ -296,7 +245,7 @@ src:"LADA Langkawi"
 {
 n:"Istana Jahar (Kelantan)",
 t:"1887",
-c:[6.132470, 102.237302], /* Diubah ke Jalan Hilir Kota */
+c:[6.131444, 102.237111], /* Dikemas kini */
 i:"Dibina oleh Sultan Ahmad Mulong Shah untuk cucunda baginda. Nama 'Jahar' diambil sempena pokok jahar yang tumbuh di pekarangan istana. Bangunan kayu ini mempamerkan seni pertukangan kayu Kelantan yang sangat halus.",
 src:"Perbadanan Muzium Negeri Kelantan"
 },
@@ -304,7 +253,7 @@ src:"Perbadanan Muzium Negeri Kelantan"
 {
 n:"Masjid Abidin (Terengganu)",
 t:"1793",
-c:[5.333857, 103.142838], /* Diubah ke Jalan Masjid */
+c:[5.334361, 103.137694], /* Dikemas kini */
 i:"Diasaskan oleh Sultan Zainal Abidin Shah II, masjid ini turut dikenali sebagai Masjid Putih atau Masjid Besar. Ia menempatkan makam diraja keluarga Kesultanan Terengganu dan telah melalui beberapa siri pembesaran tanpa menjejaskan identiti klasiknya.",
 src:"Lembaga Muzium Negeri Terengganu"
 },
@@ -312,7 +261,7 @@ src:"Lembaga Muzium Negeri Terengganu"
 {
 n:"Istana Seri Menanti (Negeri Sembilan)",
 t:"1902",
-c:[2.697089, 102.158434], /* Diubah ke Jalan Istana */
+c:[2.697089, 102.158434], 
 i:"Sebuah kebanggaan warisan seni bina Melayu Minangkabau. Istana kayu empat tingkat ini direka oleh dua tukang kayu tempatan dan dibina menggunakan 99 batang tiang kayu penak hitam tanpa menggunakan sebarang paku besi.",
 src:"Lembaga Muzium Negeri Sembilan"
 },
@@ -320,7 +269,7 @@ src:"Lembaga Muzium Negeri Sembilan"
 {
 n:"Stadthuys & Christ Church (Melaka)",
 t:"1650 & 1753",
-c:[2.194278, 102.249219], /* Diubah ke Jalan Gereja */
+c:[2.194278, 102.249219],
 i:"Kompleks bangunan peninggalan kolonial Belanda yang tertua di Asia Tenggara. Bangunan berwarna merah bata ini mencerminkan kejuruteraan klasik Belanda dengan dinding yang tebal serta menempatkan gereja Protestan bersejarah di sebelahnya.",
 src:"PERZIM & UNESCO"
 },
@@ -328,7 +277,7 @@ src:"PERZIM & UNESCO"
 {
 n:"Kota A Famosa (Melaka)",
 t:"1511",
-c:[2.192138, 102.249495], /* Diubah ke Jalan Kota */
+c:[2.191722, 102.250361], /* Dikemas kini */
 i:"Kubu besar ini dibina oleh pihak Portugis namun hampir musnah diletupkan British pada 1807. Berkat usaha Sir Stamford Raffles, struktur pintu gerbang 'Porta de Santiago' ini berjaya diselamatkan.",
 src:"PERZIM"
 },
@@ -336,7 +285,7 @@ src:"PERZIM"
 {
 n:"Istana Besar Johor",
 t:"1866",
-c:[1.455248, 103.756201], /* Diubah ke Jalan Tun Dr Ismail */
+c:[1.455306, 103.756444], /* Dikemas kini */
 i:"Dibina atas titah Sultan Sir Abu Bakar. Bangunan ini menampilkan gabungan unik antara seni bina Renaissance Barat di bahagian luar dan reka bentuk dalaman berciri tradisi Melayu-Islam. Kini ia menjadi Muzium Diraja Abu Bakar.",
 src:"Yayasan Warisan Johor"
 },
@@ -344,7 +293,7 @@ src:"Yayasan Warisan Johor"
 {
 n:"Atkinson Clock Tower (Sabah)",
 t:"1905",
-c:[5.984635, 116.073280], /* Diubah ke Jalan Tun Fuad Stephens */
+c:[5.981972, 116.077444], /* Dikemas kini */
 i:"Struktur kayu tertua yang terselamat daripada kemusnahan bom Perang Dunia Kedua di Kota Kinabalu. Dibina untuk mengenang Francis George Atkinson, Pegawai Daerah pertama yang meninggal dunia akibat malaria pada usia 28 tahun.",
 src:"Sabah Museum Department"
 },
@@ -352,7 +301,7 @@ src:"Sabah Museum Department"
 {
 n:"The Old Courthouse (Sarawak)",
 t:"1874",
-c:[1.558778, 110.344158], /* Diubah ke Jalan Tun Abang Haji Openg / Main Bazaar */
+c:[1.558778, 110.344158],
 i:"Dibina semasa era pemerintahan Rajah Charles Brooke. Struktur kompleks bangunan ini dibina daripada dinding batu konkrit tebal beratap genting dengan reka bentuk tiang ala Roman untuk dijadikan pusat kehakiman dan pentadbiran.",
 src:"Sarawak Heritage Society"
 },
@@ -360,7 +309,7 @@ src:"Sarawak Heritage Society"
 {
 n:"Muzium Budaya Borneo (Sarawak)",
 t:"2022",
-c:[1.557457, 110.343603], /* Diubah ke Jalan Tun Abang Haji Openg */
+c:[1.555472, 110.342861], /* Dikemas kini */
 i:"Walaupun bangunannya baharu, ia memelihara warisan ribuan tahun. Muzium kedua terbesar di Asia Tenggara ini memaparkan reka bentuk bumbung keemasan berilhamkan seni anyaman tradisional Sarawak.",
 src:"Sarawak Museum Department"
 }
@@ -368,54 +317,41 @@ src:"Sarawak Museum Department"
 ];
 
 /* DIALOG */
-
 var dialogText = document.getElementById("dialog-text");
 
 /* LOOP MARKER */
-
 lokasiWarisan.forEach(function(l){
-
     var marker = L.marker(l.c).addTo(map);
 
     marker.on('click',function(){
-
-        /* FORMULA RASMI GOOGLE MAPS API UNTUK MEMAKSA PAPARAN STREET VIEW (PANO) */
-        var metaverseLink = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${l.c[0]},${l.c[1]}`;
+        
+        /* URL INI TELAH DIBAIKI: Menggunakan standard carian koordinat Google Maps untuk terus membuka Street View 360 */
+        var metaverseLink = `https://www.google.com/maps?layer=c&cbll=${l.c[0]},${l.c[1]}`;
 
         dialogText.innerHTML = `
-
         <strong>> LOKASI:</strong>
         ${l.n}
-
         <br><br>
 
         <strong>> TAHUN:</strong>
         ${l.t}
-
         <br><br>
 
         <strong>> SEJARAH & INFO:</strong><br>
         ${l.i}
 
         <span class="source-text">
-
         SUMBER SISTEM:
         ${l.src}
-
         </span>
 
         <a href="${metaverseLink}"
         target="_blank"
         class="metaverse-btn">
-
         [ AKSES 360° ]
-
         </a>
-
         `;
-
     });
-
 });
 
 </script>
