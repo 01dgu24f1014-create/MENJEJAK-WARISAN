@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MENJEJAK WARISAN - METAVERSE HUB</title>
+<title>PETA BANGUNAN WARISAN - METAVERSE HUB</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,7 +152,7 @@ body{
 
 <body>
 
-<h1 class="header-title">MENJEJAK WARISAN</h1>
+<h1 class="header-title">PETA BANGUNAN WARISAN</h1>
 <h3 class="sub-title">" WARISAN DIJEJAK, IDENTITI DIJAGA " // METAVERSE HUB</h3>
 
 <div class="map-container">
@@ -196,7 +196,7 @@ src:"Jabatan Warisan Negara"
 n:"Stesen Keretapi Kuala Lumpur",
 t:"1910",
 c:[3.146944, 101.693917],
-i:"Sebuah lagi mercu tanda hebat rekaan Arthur Benison Hubback yang memaparkan pengaruh seni bina Islam utara India (Mughal-Moorish) dengan ciri menara kubah serta gerbang melengkung. Stesen ini menggantikan stesen kereta api lama yang dibina pada tahun 1886, dan pernah menjadi hab pengangkutan rel utama di ibu kota sebelum fungsi tersebut diambil alih oleh KL Sentral pada 2001.",
+i:"Sebuah lagi mercu tanda hebat rekaan Arthur Benison Hubback yang memaparkan pengaruh seni bina Islam utura India (Mughal-Moorish) dengan ciri menara kubah serta gerbang melengkung. Stesen ini menggantikan stesen kereta api lama yang dibina pada tahun 1886, dan pernah menjadi hab pengangkutan rel utama di ibu kota sebelum fungsi tersebut diambil alih oleh KL Sentral pada 2001.",
 src:"KTMB"
 },
 
@@ -340,7 +340,7 @@ lokasiWarisan.forEach(function(l){
     marker.on('click',function(){
         
         /* PEMBETULAN: Menggunakan sintaks template literal ${l.c[0]} yang betul & pautan URL Google Maps rasmi yang stabil */
-        var metaverseLink = `https://www.google.com/maps?q=&layer=c&cbll=${l.c[0]},${l.c[1]}`;
+        var metaverseLink = `https://www.google.com/maps/@${l.c[0]},${l.c[1]},15z`;
 
         dialogText.innerHTML = `
         <strong>> LOKASI:</strong>
